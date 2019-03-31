@@ -1,0 +1,145 @@
+.tooltips {
+    display: block;
+    position: absolute;
+    z-index: 100001;
+    width: auto;
+    height: auto;
+    padding: 0.3em 0.5em;
+    color: #FFFFFF;
+    font-size: 1.4em;
+    background: #c72439;
+    border-radius: 0.5em;
+}
+
+.tooltips:after {
+    width: 100%;
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0.5em;
+    top: -8px;
+    border-top: 8px solid transparent;
+    border-left: 8px solid #c72439;
+}
+
+.proofreading-contents-html .color1 {
+    background-color: #ffb0b0;
+}
+
+.proofreading-contents-html .color2 {
+    background-color: #ffb0d4;
+}
+
+.proofreading-contents-html .color3 {
+    background-color: #ffb0f9;
+}
+
+.proofreading-contents-html .color4 {
+    background-color: #f6b0ff;
+}
+
+.proofreading-contents-html .color5 {
+    background-color: #dab0ff;
+}
+
+.proofreading-contents-html .color6 {
+    background-color: #b5b0ff;
+}
+
+.proofreading-contents-html .color7 {
+    background-color: #b0c4ff;
+}
+
+.proofreading-contents-html .color8 {
+    background-color: #b0daff;
+}
+
+.proofreading-contents-html .color9 {
+    background-color: #b0fcff;
+}
+
+.proofreading-contents-html .color10 {
+    background-color: #b0ffe9;
+}
+
+.proofreading-contents-html .color11 {
+    background-color: #b0ffda;
+}
+
+.proofreading-contents-html .color12 {
+    background-color: #b0ffc0;
+}
+
+.proofreading-contents-html .color13 {
+    background-color: #bbffb0;
+}
+
+.proofreading-contents-html .color14 {
+    background-color: #daffb0;
+}
+
+.proofreading-contents-html .color15 {
+    background-color: #f6ffb0;
+}
+
+.proofreading-contents-html .color16 {
+    background-color: #ffe3b0;
+}
+
+.proofreading-contents-html .color17 {
+    background-color: #ffceb0;
+}
+
+.proofreading-spinner .components-spinner {
+    margin-top: 0;
+}
+
+.proofreading-items-table {
+
+}
+
+.proofreading-html-content {
+
+}
+
+.proofreading-tab-panel .components-tab-panel__tabs {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    border-bottom: 1px solid #e2e4e7;
+    padding: 3px 15px;
+    background: #fff;
+    align-items: center;
+    height: 56px;
+    z-index: 10;
+    margin: 0 -16px 16px;
+}
+
+.proofreading__panel-tab {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    height: 48px;
+    padding: 3px 15px;
+    margin-left: 0;
+    font-weight: 400;
+    color: #191e23;
+    outline-offset: -1px
+}
+
+.proofreading__panel-tab:after {
+    content: attr(data-label);
+    display: block;
+    font-weight: 600;
+    height: 0;
+    overflow: hidden;
+    speak: none;
+    visibility: hidden
+}
+
+.proofreading__panel-tab.is-active {
+    padding-bottom: 0;
+    border-bottom: 3px solid #0085ba;
+    font-weight: 600
+}

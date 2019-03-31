@@ -1,0 +1,9 @@
+{
+    "require": {
+        "wp-content-framework/core": "~0.0",
+        "wp-content-framework/api": "~0.0",
+        "wp-content-framework/log": "~0.0",
+        "wp-content-framework/update": "~0.0",
+        "wp-content-framework/update_check": "~0.0"
+    }
+}

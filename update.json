@@ -1,0 +1,20 @@
+{
+    "name": "Y Proofreading",
+    "slug": "y-proofreading",
+    "download_url": "https://github.com/technote-space/y-proofreading/archive/develop.zip",
+    "version": "0.0.15",
+    "tested": "5.1.1",
+    "homepage": "https://technote.space/",
+    "author": "Technote",
+    "author_homepage": "https://technote.space/",
+    "sections": {
+        "description": "Proofreading for Japanese"
+    },
+    "banners": {
+        "low": "https://raw.githubusercontent.com/technote-space/y-proofreading/images/assets/banner-772x250.png"
+    },
+    "icons" : {
+        "1x" : "https://raw.githubusercontent.com/technote-space/y-proofreading/images/assets/icon-128x128.png",
+        "2x" : "https://raw.githubusercontent.com/technote-space/y-proofreading/images/assets/icon-256x256.png"
+    }
+}

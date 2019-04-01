@@ -56,10 +56,14 @@ class Editor implements \WP_Framework_Core\Interfaces\Singleton, \WP_Framework_C
 		return [
 			'api_class' => $this->get_api_class(),
 			'translate' => [
-				'Proofreading'          => $this->translate( 'Proofreading' ),
-				'Loading...'            => $this->translate( 'Loading...' ),
-				'Proofreading info'     => $this->translate( 'Proofreading info' ),
-				'Proofreading contents' => $this->translate( 'Proofreading contents' ),
+				'Proofreading'                  => $this->translate( 'Proofreading' ),
+				'Loading...'                    => $this->translate( 'Loading...' ),
+				'Proofreading info'             => $this->translate( 'Proofreading info' ),
+				'Proofreading contents'         => $this->translate( 'Proofreading contents' ),
+				'Target surface'                => $this->translate( 'Target surface' ),
+				'Candidates of rephrasing'      => $this->translate( 'Candidates of rephrasing' ),
+				'Detail info of indicated word' => $this->translate( 'Detail info of indicated word' ),
+				'Item not found'                => $this->translate( 'Item not found' ),
 			],
 		];
 	}

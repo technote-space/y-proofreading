@@ -47,6 +47,10 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 			$params    = [
 				'sentence' => $this->get_sentence( $sentence ),
 			];
+			$no_filter = $this->apply_filters( 'no_filter' );
+			if ( $no_filter ) {
+				$params['no_filter'] = $no_filter;
+			}
 
 			$ch = curl_init( $url );
 			curl_setopt_array( $ch, [

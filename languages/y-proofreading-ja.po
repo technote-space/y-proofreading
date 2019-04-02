@@ -22,6 +22,9 @@ msgstr "Analyze Copy Contents"
 msgid "Yahoo API Client ID"
 msgstr "Yahoo!API の Client ID"
 
+msgid "exclude filter"
+msgstr "除外する指摘"
+
 msgid "Detail Settings"
 msgstr "詳細設定"
 

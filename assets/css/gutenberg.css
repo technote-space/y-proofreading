@@ -157,6 +157,11 @@
     font-weight: 600
 }
 
+.proofreading-contents-html {
+    line-height: 1.8;
+    font-size: 18px;
+}
+
 @media screen and (min-width: 782px) {
     .proofreading-info.components-panel__body.is-opened {
         position: fixed;

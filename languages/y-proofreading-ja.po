@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: y-proofreading\n"
 "POT-Creation-Date: 2018-07-01 17:47+0900\n"
-"PO-Revision-Date: 2019-04-02 16:42+0900\n"
+"PO-Revision-Date: 2019-04-02 19:39+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,9 @@ msgstr "Y Proofreading"
 
 msgid "Yahoo API Client ID"
 msgstr "Yahoo!API の Client ID"
+
+msgid "exclude filter"
+msgstr "除外する指摘"
 
 msgid "Detail Settings"
 msgstr "詳細設定"

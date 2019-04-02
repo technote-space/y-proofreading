@@ -1,6 +1,6 @@
 .tooltips {
     display: block;
-    position: absolute;
+    position: fixed;
     z-index: 100001;
     width: auto;
     height: auto;
@@ -20,6 +20,10 @@
     top: -8px;
     border-top: 8px solid transparent;
     border-left: 8px solid #c72439;
+}
+
+.proofreading-item {
+    cursor: pointer;
 }
 
 .proofreading-contents-html .color1 {
@@ -102,7 +106,8 @@
 
 }
 
-.proofreading-tab-panel .components-tab-panel__tabs {
+.proofreading-tab-panel .components-tab-panel__tabs,
+.sidebar-size-switcher .components-tab-panel__tabs {
     position: sticky;
     position: -webkit-sticky;
     top: 0;
@@ -115,7 +120,13 @@
     margin: 0 -16px 16px;
 }
 
-.proofreading__panel-tab {
+.sidebar-size-switcher .components-tab-panel__tabs {
+    border-bottom: none;
+    margin: 0;
+}
+
+.proofreading__panel-tab,
+.sidebar-size {
     background: transparent;
     border: none;
     border-radius: 0;
@@ -128,7 +139,8 @@
     outline-offset: -1px
 }
 
-.proofreading__panel-tab:after {
+.proofreading__panel-tab:after,
+.sidebar-size:after {
     content: attr(data-label);
     display: block;
     font-weight: 600;
@@ -138,8 +150,48 @@
     visibility: hidden
 }
 
-.proofreading__panel-tab.is-active {
+.proofreading__panel-tab.is-active,
+.sidebar-size.is-active {
     padding-bottom: 0;
     border-bottom: 3px solid #0085ba;
     font-weight: 600
+}
+
+@media screen and (min-width: 782px) {
+    .proofreading-info.components-panel__body.is-opened {
+        position: fixed;
+        background: white;
+        box-shadow: #666 0 0 10px;
+        right: 0;
+        top: 137px;
+        bottom: 0;
+        width: auto;
+        max-width: 35%;
+        overflow-y: auto;
+        z-index: 100;
+        padding-top: 0;
+    }
+
+    .proofreading-info.components-panel__body.is-opened.size-small {
+        box-shadow: none;
+        width: 279px;
+    }
+
+    .proofreading-info.components-panel__body.is-opened.size-large {
+        width: auto;
+        max-width: 80%;
+    }
+
+    .proofreading-info.components-panel__body.is-opened .proofreading-contents {
+        max-width: 600px;
+        padding-bottom: 4em;
+    }
+
+    .proofreading-info.components-panel__body.is-opened.size-large .proofreading-contents {
+        max-width: none;
+    }
+
+    .proofreading-info.components-panel__body.is-opened .components-panel__body-title {
+        margin-top: 0;
+    }
 }

@@ -145,13 +145,15 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 
 		$html  = $sentence;
 		$index = 0;
+		$info  = $this->translate( 'Detail info of indicated word' );
+		$word  = $this->translate( 'Candidates of rephrasing' );
 		foreach ( $result as $r ) {
 			$text = [];
 			if ( $r['info'] ) {
-				$text [] = $this->translate( 'Detail info of indicated word' ) . ': ' . $r['info'];
+				$text [] = $info . ': ' . $r['info'];
 			}
 			if ( $r['word'] ) {
-				$text [] = $this->translate( 'Candidates of rephrasing' ) . ': ' . $r['word'];
+				$text [] = $word . ': ' . $r['word'];
 			}
 			$html = $this->str_insert( $html, $r['end'], '</span>' );
 			$text = esc_attr( implode( '<br>', $text ) );

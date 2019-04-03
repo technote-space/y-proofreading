@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: y-proofreading\n"
 "POT-Creation-Date: 2018-07-01 17:47+0900\n"
-"PO-Revision-Date: 2019-03-31 22:23+0900\n"
+"PO-Revision-Date: 2019-04-02 19:39+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -13,14 +13,17 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Language: ja\n"
 
-msgid "Analyze Copy Contents"
-msgstr "Analyze Copy Contents"
+msgid "Y Proofreading"
+msgstr "Y Proofreading"
 
 msgid "Y_Proofreading"
-msgstr "Analyze Copy Contents"
+msgstr "Y Proofreading"
 
 msgid "Yahoo API Client ID"
 msgstr "Yahoo!API の Client ID"
+
+msgid "exclude filter"
+msgstr "除外する指摘"
 
 msgid "Detail Settings"
 msgstr "詳細設定"
@@ -39,3 +42,33 @@ msgstr "文章校正支援情報"
 
 msgid "Proofreading contents"
 msgstr "文章校正"
+
+msgid "Target surface"
+msgstr "対象表記"
+
+msgid "Candidates of rephrasing"
+msgstr "言い換え候補"
+
+msgid "Detail info of indicated word"
+msgstr "指摘の詳細情報"
+
+msgid "Item not found"
+msgstr "指摘事項はありません"
+
+msgid "Size setting"
+msgstr "サイズ設定"
+
+msgid "Small"
+msgstr "小"
+
+msgid "Middle"
+msgstr "中"
+
+msgid "Large"
+msgstr "大"
+
+msgid "Pin again"
+msgstr "再度固定"
+
+msgid "Open in modal"
+msgstr "モーダルで開く"

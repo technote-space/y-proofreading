@@ -1,7 +1,7 @@
 <?php /** @noinspection PhpUndefinedFieldInspection */
 
 /**
- * @version 0.0.1
+ * @version 0.0.2
  * @author Technote
  * @since 0.0.1
  * @copyright Technote All Rights Reserved
@@ -47,6 +47,10 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 			$params    = [
 				'sentence' => $this->get_sentence( $sentence ),
 			];
+			$no_filter = $this->apply_filters( 'no_filter' );
+			if ( $no_filter ) {
+				$params['no_filter'] = $no_filter;
+			}
 
 			$ch = curl_init( $url );
 			curl_setopt_array( $ch, [
@@ -141,13 +145,15 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 
 		$html  = $sentence;
 		$index = 0;
+		$info  = $this->translate( 'Detail info of indicated word' );
+		$word  = $this->translate( 'Candidates of rephrasing' );
 		foreach ( $result as $r ) {
 			$text = [];
 			if ( $r['info'] ) {
-				$text [] = '指摘詳細情報: ' . $r['info'];
+				$text [] = $info . ': ' . $r['info'];
 			}
 			if ( $r['word'] ) {
-				$text [] = '言い換え候補: ' . $r['word'];
+				$text [] = $word . ': ' . $r['word'];
 			}
 			$html = $this->str_insert( $html, $r['end'], '</span>' );
 			$text = esc_attr( implode( '<br>', $text ) );
@@ -155,15 +161,11 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 			$index ++;
 		}
 
-		$items_html = $this->get_view( 'admin/result', [
-			'items' => $items,
-		] );
-
 		return [
 			'result'   => true,
 			'sentence' => $sentence,
 			'html'     => nl2br( $html ),
-			'items'    => $items_html,
+			'items'    => $items,
 			'message'  => $this->translate( 'Succeeded' ),
 		];
 	}

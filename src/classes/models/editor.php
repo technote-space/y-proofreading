@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 0.0.2
+ * @version 0.0.3
  * @author Technote
  * @since 0.0.1
  * @copyright Technote All Rights Reserved
@@ -72,6 +72,7 @@ class Editor implements \WP_Framework_Core\Interfaces\Singleton, \WP_Framework_C
 				'Size setting'                  => $this->translate( 'Size setting' ),
 				'Pin again'                     => $this->translate( 'Pin again' ),
 				'Open in modal'                 => $this->translate( 'Open in modal' ),
+				'Proofread again'               => $this->translate( 'Proofread again' ),
 			],
 		];
 	}

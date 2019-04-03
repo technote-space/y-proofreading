@@ -6,7 +6,7 @@
 
 ![バナー](https://raw.githubusercontent.com/technote-space/y-proofreading/images/assets/banner-772x250.png)
 
-コピーされた内容を通知したり解析したりするプラグインです。
+Yahoo! API を使用した校正支援プラグインです。
 
 ## スクリーンショット
 

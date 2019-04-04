@@ -42,6 +42,31 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 			}
 
 			$sentence  = $this->get_sentence( $content );
+			$hash     = $this->app->utility->create_hash( $sentence, 'proofreading' );
+			$cache    = $this->cache_get( $hash );
+			if ( is_array( $cache ) ) {
+				return $cache;
+			}
+
+			$result = $this->request( $sentence );
+			$this->cache_set( $hash, $result, false, 3600 );
+
+			return $result;
+		} catch ( \Exception $e ) {
+			return [
+				'result'  => false,
+				'message' => $e->getMessage(),
+			];
+		}
+	}
+
+	/**
+	 * @param string $sentence
+	 *
+	 * @return array
+	 * @throws \Exception
+	 */
+	private function request( $sentence ) {
 			$url       = $this->app->get_config( 'yahoo', 'request_url' );
 			$client_id = $this->apply_filters( 'yahoo_client_id' );
 			$params    = [
@@ -77,12 +102,6 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 			}
 
 			return $this->parse_result( $sentence, $results );
-		} catch ( \Exception $e ) {
-			return [
-				'result'  => false,
-				'message' => $e->getMessage(),
-			];
-		}
 	}
 
 	/**

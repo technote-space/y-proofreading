@@ -46,4 +46,7 @@ return [
 
 	// github repo
 	'github_repo'                    => 'technote-space/y-proofreading',
+
+	// delete cache group
+	'delete_cache_group'             => [ 'y-proofreading_classes_models_proofreading' ],
 ];

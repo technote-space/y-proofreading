@@ -91,8 +91,11 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 	 * @return string
 	 */
 	private function get_sentence( $content ) {
-		foreach ( $this->apply_filters( 'remove_tags', [ 'pre', 'code', 'blockquote' ] ) as $target ) {
+		foreach ( $this->apply_filters( 'remove_block_tags', [ 'pre', 'code', 'blockquote' ] ) as $target ) {
 			$content = preg_replace( '#<' . $target . '[\s>].*?</' . $target . '>#is', "\n", $content );
+		}
+		foreach ( $this->apply_filters( 'remove_inline_tags', [ 'rt' ] ) as $target ) {
+			$content = preg_replace( '#<' . $target . '[\s>].*?</' . $target . '>#is', '', $content );
 		}
 		$content = wp_strip_all_tags( $content );
 		$content = strip_shortcodes( $content );

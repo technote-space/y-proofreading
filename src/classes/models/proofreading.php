@@ -1,7 +1,7 @@
 <?php /** @noinspection PhpUndefinedFieldInspection */
 
 /**
- * @version 0.0.2
+ * @version 0.0.4
  * @author Technote
  * @since 0.0.1
  * @copyright Technote All Rights Reserved
@@ -41,42 +41,17 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 				throw new \Exception( $this->translate( 'Not available' ) );
 			}
 
-			$sentence  = $this->get_sentence( $content );
-			$url       = $this->app->get_config( 'yahoo', 'request_url' );
-			$client_id = $this->apply_filters( 'yahoo_client_id' );
-			$params    = [
-				'sentence' => $this->get_sentence( $sentence ),
-			];
-			$no_filter = $this->apply_filters( 'no_filter' );
-			if ( $no_filter ) {
-				$params['no_filter'] = $no_filter;
+			$sentence = $this->get_sentence( $content );
+			$hash     = $this->app->utility->create_hash( $sentence, 'proofreading' );
+			$cache    = $this->cache_get( $hash );
+			if ( is_array( $cache ) ) {
+				return $cache;
 			}
 
-			$ch = curl_init( $url );
-			curl_setopt_array( $ch, [
-				CURLOPT_POST           => true,
-				CURLOPT_RETURNTRANSFER => true,
-				CURLOPT_USERAGENT      => "Yahoo AppID: {$client_id}",
-				CURLOPT_POSTFIELDS     => http_build_query( $params ),
-			] );
-			$results = curl_exec( $ch );
-			$errno   = curl_errno( $ch );
-			$error   = curl_error( $ch );
-			curl_close( $ch );
+			$result = $this->request( $sentence );
+			$this->cache_set( $hash, $result, false, 3600 );
 
-			if ( CURLE_OK !== $errno ) {
-				throw new \RuntimeException( $error, $errno );
-			}
-			if ( false === $results ) {
-				throw new \Exception( $this->translate( 'Invalid API Response.' ) );
-			}
-
-			$results = new \SimpleXMLElement( $results );
-			if ( $results->Message ) {
-				throw new \Exception( (string) $results->Message );
-			}
-
-			return $this->parse_result( $sentence, $results );
+			return $result;
 		} catch ( \Exception $e ) {
 			return [
 				'result'  => false,
@@ -86,13 +61,60 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 	}
 
 	/**
+	 * @param string $sentence
+	 *
+	 * @return array
+	 * @throws \Exception
+	 */
+	private function request( $sentence ) {
+		$url       = $this->app->get_config( 'yahoo', 'request_url' );
+		$client_id = $this->apply_filters( 'yahoo_client_id' );
+		$params    = [
+			'sentence' => $this->get_sentence( $sentence ),
+		];
+		$no_filter = $this->apply_filters( 'no_filter' );
+		if ( $no_filter ) {
+			$params['no_filter'] = $no_filter;
+		}
+
+		$ch = curl_init( $url );
+		curl_setopt_array( $ch, [
+			CURLOPT_POST           => true,
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_USERAGENT      => "Yahoo AppID: {$client_id}",
+			CURLOPT_POSTFIELDS     => http_build_query( $params ),
+		] );
+		$results = curl_exec( $ch );
+		$errno   = curl_errno( $ch );
+		$error   = curl_error( $ch );
+		curl_close( $ch );
+
+		if ( CURLE_OK !== $errno ) {
+			throw new \RuntimeException( $error, $errno );
+		}
+		if ( false === $results ) {
+			throw new \Exception( $this->translate( 'Invalid API Response.' ) );
+		}
+
+		$results = new \SimpleXMLElement( $results );
+		if ( $results->Message ) {
+			throw new \Exception( (string) $results->Message );
+		}
+
+		return $this->parse_result( $sentence, $results );
+	}
+
+	/**
 	 * @param string $content
 	 *
 	 * @return string
 	 */
 	private function get_sentence( $content ) {
-		foreach ( $this->apply_filters( 'remove_tags', [ 'pre', 'code', 'blockquote' ] ) as $target ) {
+		foreach ( $this->apply_filters( 'remove_block_tags', [ 'pre', 'code', 'blockquote' ] ) as $target ) {
 			$content = preg_replace( '#<' . $target . '[\s>].*?</' . $target . '>#is', "\n", $content );
+		}
+		foreach ( $this->apply_filters( 'remove_inline_tags', [ 'rt' ] ) as $target ) {
+			$content = preg_replace( '#<' . $target . '[\s>].*?</' . $target . '>#is', '', $content );
 		}
 		$content = wp_strip_all_tags( $content );
 		$content = strip_shortcodes( $content );
@@ -114,6 +136,7 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 	 */
 	private function parse_result( $sentence, $results ) {
 		$items   = [];
+		$index   = 0;
 		$hash    = [];
 		$result  = [];
 		$filters = $this->app->get_config( 'yahoo', 'filter' );
@@ -133,12 +156,12 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 				'info'    => (string) $value->ShitekiInfo,
 				'index'   => $this->app->array->get( $filters, (string) $value->ShitekiInfo . '.index', 0 ),
 			];
-			$h = $r['surface'] . '-' . $r['word'] . '-' . $r['info'];
-			if ( ! in_array( $h, $hash ) ) {
-				$hash[]  = $h;
-				$items[] = [ 'surface' => $r['surface'], 'word' => $r['word'], 'info' => $r['info'] ];
+			$h = $this->app->utility->create_hash( $r['surface'] . '-' . $r['word'] . '-' . $r['info'], 'proofreading' );
+			if ( ! isset( $hash[ $h ] ) ) {
+				$hash[ $h ] = $index ++;
+				$items[]    = [ 'surface' => $r['surface'], 'word' => $r['word'], 'info' => $r['info'], 'index' => $index, 'hash' => $h ];
 			}
-			$r['item_index'] = array_search( $h, $hash );
+			$r['item_index'] = $hash[ $h ];
 			$result[]        = $r;
 		}
 		$result = array_reverse( $result );

@@ -1,5 +1,5 @@
 /**
- * @version 0.0.3
+ * @version 0.0.4
  * @author Technote
  * @since 0.0.2
  * @copyright Technote All Rights Reserved
@@ -35,71 +35,71 @@
     cursor: pointer;
 }
 
-.proofreading-contents-html .color1 {
+.proofreading-item.color1 {
     background-color: #ffb0b0;
 }
 
-.proofreading-contents-html .color2 {
+.proofreading-item.color2 {
     background-color: #ffb0d4;
 }
 
-.proofreading-contents-html .color3 {
+.proofreading-item.color3 {
     background-color: #ffb0f9;
 }
 
-.proofreading-contents-html .color4 {
+.proofreading-item.color4 {
     background-color: #f6b0ff;
 }
 
-.proofreading-contents-html .color5 {
+.proofreading-item.color5 {
     background-color: #dab0ff;
 }
 
-.proofreading-contents-html .color6 {
+.proofreading-item.color6 {
     background-color: #b5b0ff;
 }
 
-.proofreading-contents-html .color7 {
+.proofreading-item.color7 {
     background-color: #b0c4ff;
 }
 
-.proofreading-contents-html .color8 {
+.proofreading-item.color8 {
     background-color: #b0daff;
 }
 
-.proofreading-contents-html .color9 {
+.proofreading-item.color9 {
     background-color: #b0fcff;
 }
 
-.proofreading-contents-html .color10 {
+.proofreading-item.color10 {
     background-color: #b0ffe9;
 }
 
-.proofreading-contents-html .color11 {
+.proofreading-item.color11 {
     background-color: #b0ffda;
 }
 
-.proofreading-contents-html .color12 {
+.proofreading-item.color12 {
     background-color: #b0ffc0;
 }
 
-.proofreading-contents-html .color13 {
+.proofreading-item.color13 {
     background-color: #bbffb0;
 }
 
-.proofreading-contents-html .color14 {
+.proofreading-item.color14 {
     background-color: #daffb0;
 }
 
-.proofreading-contents-html .color15 {
+.proofreading-item.color15 {
     background-color: #f6ffb0;
 }
 
-.proofreading-contents-html .color16 {
+.proofreading-item.color16 {
     background-color: #ffe3b0;
 }
 
-.proofreading-contents-html .color17 {
+.proofreading-item.color17 {
     background-color: #ffceb0;
 }
 

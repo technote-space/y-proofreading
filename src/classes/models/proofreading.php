@@ -136,6 +136,7 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 	 */
 	private function parse_result( $sentence, $results ) {
 		$items   = [];
+		$index   = 0;
 		$hash    = [];
 		$result  = [];
 		$filters = $this->app->get_config( 'yahoo', 'filter' );
@@ -155,12 +156,12 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 				'info'    => (string) $value->ShitekiInfo,
 				'index'   => $this->app->array->get( $filters, (string) $value->ShitekiInfo . '.index', 0 ),
 			];
-			$h = $r['surface'] . '-' . $r['word'] . '-' . $r['info'];
-			if ( ! in_array( $h, $hash ) ) {
-				$hash[]  = $h;
-				$items[] = [ 'surface' => $r['surface'], 'word' => $r['word'], 'info' => $r['info'] ];
+			$h = $this->app->utility->create_hash( $r['surface'] . '-' . $r['word'] . '-' . $r['info'], 'proofreading' );
+			if ( ! isset( $hash[ $h ] ) ) {
+				$hash[ $h ] = $index ++;
+				$items[]    = [ 'surface' => $r['surface'], 'word' => $r['word'], 'info' => $r['info'], 'index' => $index, 'hash' => $h ];
 			}
-			$r['item_index'] = array_search( $h, $hash );
+			$r['item_index'] = $hash[ $h ];
 			$result[]        = $r;
 		}
 		$result = array_reverse( $result );

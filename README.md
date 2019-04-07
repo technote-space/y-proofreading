@@ -18,6 +18,14 @@ Yahoo! API を使用した校正支援プラグインです。
 1. [ZIPをダウンロード](https://github.com/technote-space/y-proofreading/archive/master.zip)
 2. wp-content/plugins に展開
 3. プラグインを有効化 
+4. *Yahoo! API* の *Client ID* を設定  
+    1. https://developer.yahoo.co.jp/yconnect/v2/registration.html  
+        アプリケーションの種類は「サーバーサイド」
+    2. 管理画面左メニュー『Y Proofreading』⇒『ダッシュボード』に移動
+    3. 『Yahoo!API の Client ID』に取得した *Client ID* を入力して『更新』ボタンを押下
+
+## 使用方法
+今後追加予定
 
 ## Author
 [GitHub (Technote)](https://github.com/technote-space)  

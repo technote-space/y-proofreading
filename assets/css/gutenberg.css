@@ -1,5 +1,5 @@
 /**
- * @version 0.0.4
+ * @version 0.0.5
  * @author Technote
  * @since 0.0.2
  * @copyright Technote All Rights Reserved
@@ -197,7 +197,7 @@
 
     .proofreading-info.components-panel__body.is-opened .proofreading-contents {
         max-width: 600px;
-        padding-bottom: 4em;
+        margin-bottom: 4em;
     }
 
     .proofreading-info.components-panel__body.is-opened.size-large .proofreading-contents {
@@ -206,5 +206,12 @@
 
     .proofreading-info.components-panel__body.is-opened .components-panel__body-title {
         margin-top: 0;
+    }
+
+    .proofreading-info.components-panel__body.is-opened .proofreading-contents.editor-styles-wrapper .editor-writing-flow {
+        display: block;
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
     }
 }

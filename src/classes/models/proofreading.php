@@ -1,7 +1,7 @@
 <?php /** @noinspection PhpUndefinedFieldInspection */
 
 /**
- * @version 0.0.4
+ * @version 0.0.5
  * @author Technote
  * @since 0.0.1
  * @copyright Technote All Rights Reserved
@@ -115,6 +115,9 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 		}
 		foreach ( $this->apply_filters( 'remove_inline_tags', [ 'rt' ] ) as $target ) {
 			$content = preg_replace( '#<' . $target . '[\s>].*?</' . $target . '>#is', '', $content );
+		}
+		foreach ( $this->apply_filters( 'as_block_tags', [ 'li' ] ) as $target ) {
+			$content = preg_replace( '#<' . $target . '[\s>](.*?)</' . $target . '>#is', "$1\n", $content );
 		}
 		$content = wp_strip_all_tags( $content );
 		$content = strip_shortcodes( $content );

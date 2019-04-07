@@ -207,4 +207,8 @@
     .proofreading-info.components-panel__body.is-opened .components-panel__body-title {
         margin-top: 0;
     }
+
+    .proofreading-info.components-panel__body.is-opened .proofreading-contents.editor-styles-wrapper .editor-writing-flow {
+        display: block;
+    }
 }

@@ -210,5 +210,8 @@
 
     .proofreading-info.components-panel__body.is-opened .proofreading-contents.editor-styles-wrapper .editor-writing-flow {
         display: block;
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
     }
 }

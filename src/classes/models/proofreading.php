@@ -116,7 +116,7 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 		foreach ( $this->apply_filters( 'remove_inline_tags', [ 'rt' ] ) as $target ) {
 			$content = preg_replace( '#<' . $target . '[\s>].*?</' . $target . '>#is', '', $content );
 		}
-		foreach ( $this->apply_filters( 'block_tags', [ 'li' ] ) as $target ) {
+		foreach ( $this->apply_filters( 'as_block_tags', [ 'li' ] ) as $target ) {
 			$content = preg_replace( '#<' . $target . '[\s>](.*?)</' . $target . '>#is', "$1\n", $content );
 		}
 		$content = wp_strip_all_tags( $content );

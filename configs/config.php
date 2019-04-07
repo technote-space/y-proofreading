@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 0.0.4
+ * @version 0.0.6
  * @author Technote
  * @since 0.0.1
  * @copyright Technote All Rights Reserved
@@ -46,7 +46,4 @@ return [
 
 	// github repo
 	'github_repo'                    => 'technote-space/y-proofreading',
-
-	// delete cache group
-	'delete_cache_group'             => [ 'y-proofreading_classes_models_proofreading' ],
 ];

@@ -1,7 +1,7 @@
 <?php /** @noinspection PhpUndefinedFieldInspection */
 
 /**
- * @version 0.0.5
+ * @version 0.0.6
  * @author Technote
  * @since 0.0.1
  * @copyright Technote All Rights Reserved
@@ -41,17 +41,7 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 				throw new \Exception( $this->translate( 'Not available' ) );
 			}
 
-			$sentence = $this->get_sentence( $content );
-			$hash     = $this->app->utility->create_hash( $sentence, 'proofreading' );
-			$cache    = $this->cache_get( $hash );
-			if ( is_array( $cache ) ) {
-				return $cache;
-			}
-
-			$result = $this->request( $sentence );
-			$this->cache_set( $hash, $result, false, 3600 );
-
-			return $result;
+			return $this->request( $this->get_sentence( $content ) );
 		} catch ( \Exception $e ) {
 			return [
 				'result'  => false,

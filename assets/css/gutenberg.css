@@ -197,7 +197,7 @@
 
     .proofreading-info.components-panel__body.is-opened .proofreading-contents {
         max-width: 600px;
-        padding-bottom: 4em;
+        margin-bottom: 4em;
     }
 
     .proofreading-info.components-panel__body.is-opened.size-large .proofreading-contents {

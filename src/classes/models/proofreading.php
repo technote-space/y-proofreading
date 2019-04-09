@@ -125,7 +125,8 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 		$content = str_replace( '&amp;nbsp;', '', $content );
 		$content = preg_replace( '/&(([a-zA-Z]{2,}[a-zA-Z0-9]*)|(#[0-9]{2,4})|(#x[a-fA-F0-9]{2,4}))?;/', '', $content );
 		$content = html_entity_decode( $content );
-		$content = normalize_whitespace( $content );
+		$content = str_replace( "\r", "\n", $content );
+		$content = preg_replace( [ '/\n{3,}/', '/[ \t]+/' ], [ "\n\n", ' ' ], $content );
 		$content = stripslashes( $content );
 
 		return trim( $content );

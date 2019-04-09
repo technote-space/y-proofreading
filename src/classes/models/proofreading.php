@@ -70,7 +70,7 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 		$url       = $this->app->get_config( 'yahoo', 'request_url' );
 		$client_id = $this->apply_filters( 'yahoo_client_id' );
 		$params    = [
-			'sentence' => $this->get_sentence( $sentence ),
+			'sentence' => $sentence,
 		];
 		$no_filter = $this->apply_filters( 'no_filter' );
 		if ( $no_filter ) {
@@ -111,13 +111,13 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 	 */
 	private function get_sentence( $content ) {
 		foreach ( $this->apply_filters( 'remove_block_tags', [ 'pre', 'code', 'blockquote' ] ) as $target ) {
-			$content = preg_replace( '#<' . $target . '[\s>].*?</' . $target . '>#is', "\n", $content );
+			$content = preg_replace( '#<' . $target . '[^>]*?>[\s\S]*?</' . $target . '>#i', "\n", $content );
 		}
 		foreach ( $this->apply_filters( 'remove_inline_tags', [ 'rt' ] ) as $target ) {
-			$content = preg_replace( '#<' . $target . '[\s>].*?</' . $target . '>#is', '', $content );
+			$content = preg_replace( '#<' . $target . '[^>]*?>[\s\S]*?</' . $target . '>#i', '', $content );
 		}
 		foreach ( $this->apply_filters( 'as_block_tags', [ 'li' ] ) as $target ) {
-			$content = preg_replace( '#<' . $target . '[\s>](.*?)</' . $target . '>#is', "$1\n", $content );
+			$content = preg_replace( '#<' . $target . '[^>]*?>([\s\S]*?)</' . $target . '>#i', "$1\n", $content );
 		}
 		$content = wp_strip_all_tags( $content );
 		$content = strip_shortcodes( $content );
@@ -128,7 +128,7 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 		$content = normalize_whitespace( $content );
 		$content = stripslashes( $content );
 
-		return $content;
+		return trim( $content );
 	}
 
 	/**

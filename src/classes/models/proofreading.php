@@ -142,7 +142,7 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 		$items   = [];
 		$index   = 0;
 		$hash    = [];
-		$result  = [];
+		$summary = [];
 		$filters = $this->app->get_config( 'yahoo', 'filter' );
 		foreach ( $results->Result as $value ) {
 			$start = (int) $value->StartPos;
@@ -166,48 +166,39 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 				$items[]    = [ 'surface' => $r['surface'], 'word' => $r['word'], 'info' => $r['info'], 'index' => $index, 'hash' => $h ];
 			}
 			$r['item_index'] = $hash[ $h ];
-			$result[]        = $r;
+			$summary[]       = $r;
 		}
-		$result = array_reverse( $result );
 
-		$html  = $sentence;
-		$index = 0;
-		$info  = $this->translate( 'Detail info of indicated word' );
-		$word  = $this->translate( 'Candidates of rephrasing' );
-		foreach ( $result as $r ) {
-			$text = [];
-			if ( $r['info'] ) {
-				$text [] = $info . ': ' . $r['info'];
-			}
-			if ( $r['word'] ) {
-				$text [] = $word . ': ' . $r['word'];
-			}
-			$html = $this->str_insert( $html, $r['end'], '</span>' );
-			$text = esc_attr( implode( '<br>', $text ) );
-			$html = $this->str_insert( $html, $r['start'], "<span class='proofreading-item color{$r['index']}' data-text='{$text}' data-index='{$r['item_index']}' data-i='{$index}'>" );
-			$index ++;
+		$fragments = [];
+		$end       = null;
+		$index     = 0;
+		foreach ( array_reverse( $summary ) as $r ) {
+			$fragments[] = [
+				'text' => mb_substr( $sentence, $r['end'], isset( $end ) ? $end - $r['end'] : null ),
+			];
+			$fragments[] = [
+				'text'       => mb_substr( $sentence, $r['start'], $r['end'] - $r['start'] ),
+				'index'      => $r['index'],
+				'item_index' => $r['item_index'],
+				'info'       => $r['info'],
+				'word'       => $r['word'],
+				'id'         => 'proofreading-tooltip-' . ( $index ++ ),
+			];
+			$end         = $r['start'];
 		}
+		if ( $end ) {
+			$fragments[] = [
+				'text' => mb_substr( $sentence, 0, $end ),
+			];
+		}
+		$fragments = array_reverse( $fragments );
 
 		return [
-			'result'   => true,
-			'sentence' => $sentence,
-			'html'     => nl2br( $html ),
-			'items'    => $items,
-			'message'  => $this->translate( 'Succeeded' ),
+			'result'    => true,
+			'sentence'  => $sentence,
+			'items'     => $items,
+			'fragments' => $fragments,
+			'message'   => $this->translate( 'Succeeded' ),
 		];
-	}
-
-	/**
-	 * @param string $string
-	 * @param int $pos
-	 * @param string $insert
-	 *
-	 * @return string
-	 */
-	private function str_insert( $string, $pos, $insert ) {
-		$str1 = mb_substr( $string, 0, $pos );
-		$str2 = mb_substr( $string, $pos );
-
-		return $str1 . $insert . $str2;
 	}
 }

@@ -27,6 +27,9 @@ Yahoo! API を使用した校正支援プラグインです。
 ## 使用方法
 今後追加予定
 
+## 設定
+今後追加予定
+
 ## Author
 [GitHub (Technote)](https://github.com/technote-space)  
 [Blog](https://technote.space)

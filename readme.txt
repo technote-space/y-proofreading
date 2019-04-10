@@ -1,10 +1,10 @@
 === Y Proofreading ===
 Contributors: technote0space
 Tags: proofreading, Japanese, 校正
-Requires at least: 3.9.3
+Requires at least: 5.0
 Requires PHP: 5.6
 Tested up to: 5.2
-Stable tag: 0.0.7
+Stable tag: 0.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: y-proofreading\n"
 "POT-Creation-Date: 2018-07-01 17:47+0900\n"
-"PO-Revision-Date: 2019-04-03 12:05+0900\n"
+"PO-Revision-Date: 2019-04-10 17:14+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,9 @@ msgstr "Yahoo!API の Client ID"
 
 msgid "exclude filter"
 msgstr "除外する指摘"
+
+msgid "Whether to use proofreading result cache"
+msgstr "校正結果をキャッシュするかどうか"
 
 msgid "Detail Settings"
 msgstr "詳細設定"
@@ -70,8 +73,14 @@ msgstr "大"
 msgid "Pin again"
 msgstr "再度固定"
 
-msgid "Open in modal"
-msgstr "モーダルで開く"
-
 msgid "Proofread again"
 msgstr "再度実行"
+
+msgid "Loading..."
+msgstr "Loading..."
+
+msgid "In pixel"
+msgstr "pxで指定"
+
+msgid "In percentage"
+msgstr "％で指定"

@@ -1,7 +1,7 @@
 <?php /** @noinspection PhpUndefinedFieldInspection */
 
 /**
- * @version 0.0.6
+ * @version 0.0.7
  * @author Technote
  * @since 0.0.1
  * @copyright Technote All Rights Reserved
@@ -41,7 +41,21 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 				throw new \Exception( $this->translate( 'Not available' ) );
 			}
 
-			return $this->request( $this->get_sentence( $content ) );
+			$sentence = $this->get_sentence( $content );
+			if ( ! $this->apply_filters( 'is_valid_proofreading_cache' ) ) {
+				return $this->request( $sentence );
+			}
+
+			$hash  = $this->app->utility->create_hash( $sentence, 'proofreading' );
+			$cache = $this->cache_get( $hash );
+			if ( is_array( $cache ) ) {
+				return $cache;
+			}
+
+			$result = $this->request( $sentence );
+			$this->cache_set( $hash, $result, false, 3600 );
+
+			return $result;
 		} catch ( \Exception $e ) {
 			return [
 				'result'  => false,
@@ -60,7 +74,7 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 		$url       = $this->app->get_config( 'yahoo', 'request_url' );
 		$client_id = $this->apply_filters( 'yahoo_client_id' );
 		$params    = [
-			'sentence' => $this->get_sentence( $sentence ),
+			'sentence' => $sentence,
 		];
 		$no_filter = $this->apply_filters( 'no_filter' );
 		if ( $no_filter ) {
@@ -101,13 +115,13 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 	 */
 	private function get_sentence( $content ) {
 		foreach ( $this->apply_filters( 'remove_block_tags', [ 'pre', 'code', 'blockquote' ] ) as $target ) {
-			$content = preg_replace( '#<' . $target . '[\s>].*?</' . $target . '>#is', "\n", $content );
+			$content = preg_replace( '#<' . $target . '[^>]*?>[\s\S]*?</' . $target . '>#i', "\n", $content );
 		}
 		foreach ( $this->apply_filters( 'remove_inline_tags', [ 'rt' ] ) as $target ) {
-			$content = preg_replace( '#<' . $target . '[\s>].*?</' . $target . '>#is', '', $content );
+			$content = preg_replace( '#<' . $target . '[^>]*?>[\s\S]*?</' . $target . '>#i', '', $content );
 		}
 		foreach ( $this->apply_filters( 'as_block_tags', [ 'li' ] ) as $target ) {
-			$content = preg_replace( '#<' . $target . '[\s>](.*?)</' . $target . '>#is', "$1\n", $content );
+			$content = preg_replace( '#<' . $target . '[^>]*?>([\s\S]*?)</' . $target . '>#i', "$1\n", $content );
 		}
 		$content = wp_strip_all_tags( $content );
 		$content = strip_shortcodes( $content );
@@ -115,10 +129,11 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 		$content = str_replace( '&amp;nbsp;', '', $content );
 		$content = preg_replace( '/&(([a-zA-Z]{2,}[a-zA-Z0-9]*)|(#[0-9]{2,4})|(#x[a-fA-F0-9]{2,4}))?;/', '', $content );
 		$content = html_entity_decode( $content );
-		$content = normalize_whitespace( $content );
+		$content = str_replace( "\r", "\n", $content );
+		$content = preg_replace( [ '/\n{3,}/', '/[ \t]+/' ], [ "\n\n", ' ' ], $content );
 		$content = stripslashes( $content );
 
-		return $content;
+		return trim( $content );
 	}
 
 	/**
@@ -131,7 +146,7 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 		$items   = [];
 		$index   = 0;
 		$hash    = [];
-		$result  = [];
+		$summary = [];
 		$filters = $this->app->get_config( 'yahoo', 'filter' );
 		foreach ( $results->Result as $value ) {
 			$start = (int) $value->StartPos;
@@ -149,54 +164,45 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 				'info'    => (string) $value->ShitekiInfo,
 				'index'   => $this->app->array->get( $filters, (string) $value->ShitekiInfo . '.index', 0 ),
 			];
-			$h = $this->app->utility->create_hash( $r['surface'] . '-' . $r['word'] . '-' . $r['info'], 'proofreading' );
+			$h = $this->app->utility->create_hash( $r['index'] . '-' . $r['surface'] . '-' . $r['word'] . '-' . $r['info'], 'proofreading' );
 			if ( ! isset( $hash[ $h ] ) ) {
 				$hash[ $h ] = $index ++;
-				$items[]    = [ 'surface' => $r['surface'], 'word' => $r['word'], 'info' => $r['info'], 'index' => $index, 'hash' => $h ];
+				$items[]    = [ 'surface' => $r['surface'], 'word' => $r['word'], 'info' => $r['info'], 'index' => $r['index'], 'hash' => $h ];
 			}
 			$r['item_index'] = $hash[ $h ];
-			$result[]        = $r;
+			$summary[]       = $r;
 		}
-		$result = array_reverse( $result );
 
-		$html  = $sentence;
-		$index = 0;
-		$info  = $this->translate( 'Detail info of indicated word' );
-		$word  = $this->translate( 'Candidates of rephrasing' );
-		foreach ( $result as $r ) {
-			$text = [];
-			if ( $r['info'] ) {
-				$text [] = $info . ': ' . $r['info'];
-			}
-			if ( $r['word'] ) {
-				$text [] = $word . ': ' . $r['word'];
-			}
-			$html = $this->str_insert( $html, $r['end'], '</span>' );
-			$text = esc_attr( implode( '<br>', $text ) );
-			$html = $this->str_insert( $html, $r['start'], "<span class='proofreading-item color{$r['index']}' data-text='{$text}' data-index='{$r['item_index']}' data-i='{$index}'>" );
-			$index ++;
+		$fragments = [];
+		$end       = null;
+		$index     = 0;
+		foreach ( array_reverse( $summary ) as $r ) {
+			$fragments[] = [
+				'text' => mb_substr( $sentence, $r['end'], isset( $end ) ? $end - $r['end'] : null ),
+			];
+			$fragments[] = [
+				'text'       => mb_substr( $sentence, $r['start'], $r['end'] - $r['start'] ),
+				'index'      => $r['index'],
+				'item_index' => $r['item_index'],
+				'info'       => $r['info'],
+				'word'       => $r['word'],
+				'id'         => 'proofreading-tooltip-' . ( $index ++ ),
+			];
+			$end         = $r['start'];
 		}
+		if ( $end ) {
+			$fragments[] = [
+				'text' => mb_substr( $sentence, 0, $end ),
+			];
+		}
+		$fragments = array_reverse( $fragments );
 
 		return [
-			'result'   => true,
-			'sentence' => $sentence,
-			'html'     => nl2br( $html ),
-			'items'    => $items,
-			'message'  => $this->translate( 'Succeeded' ),
+			'result'    => true,
+			'sentence'  => $sentence,
+			'items'     => $items,
+			'fragments' => $fragments,
+			'message'   => $this->translate( 'Succeeded' ),
 		];
-	}
-
-	/**
-	 * @param string $string
-	 * @param int $pos
-	 * @param string $insert
-	 *
-	 * @return string
-	 */
-	private function str_insert( $string, $pos, $insert ) {
-		$str1 = mb_substr( $string, 0, $pos );
-		$str2 = mb_substr( $string, $pos );
-
-		return $str1 . $insert . $str2;
 	}
 }

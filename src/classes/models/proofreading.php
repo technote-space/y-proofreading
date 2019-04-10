@@ -42,6 +42,10 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 			}
 
 			$sentence = $this->get_sentence( $content );
+			if ( ! $this->apply_filters( 'is_valid_proofreading_cache' ) ) {
+				return $this->request( $sentence );
+			}
+
 			$hash     = $this->app->utility->create_hash( $sentence, 'proofreading' );
 			$cache    = $this->cache_get( $hash );
 			if ( is_array( $cache ) ) {

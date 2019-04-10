@@ -25,6 +25,9 @@ msgstr "Yahoo!API の Client ID"
 msgid "exclude filter"
 msgstr "除外する指摘"
 
+msgid "Whether to use proofreading result cache"
+msgstr "校正結果をキャッシュするかどうか"
+
 msgid "Detail Settings"
 msgstr "詳細設定"
 

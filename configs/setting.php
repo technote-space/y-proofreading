@@ -14,7 +14,7 @@ if ( ! defined( 'Y_PROOFREADING' ) ) {
 
 return [
 
-	9 => [
+	9   => [
 		'Main Setting' => [
 			10 => [
 				'yahoo_client_id' => [
@@ -22,6 +22,17 @@ return [
 				],
 				'no_filter'       => [
 					'label' => 'exclude filter',
+				],
+			],
+		],
+	],
+	100 => [
+		'Performance' => [
+			10 => [
+				'is_valid_proofreading_cache' => [
+					'label'   => 'Whether to use proofreading result cache',
+					'type'    => 'bool',
+					'default' => false,
 				],
 			],
 		],

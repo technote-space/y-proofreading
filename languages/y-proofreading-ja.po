@@ -75,3 +75,9 @@ msgstr "再度実行"
 
 msgid "Loading..."
 msgstr "Loading..."
+
+msgid "In pixel"
+msgstr "pxで指定"
+
+msgid "In percentage"
+msgstr "％で指定"

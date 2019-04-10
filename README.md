@@ -16,7 +16,7 @@ Yahoo! API を使用した校正支援プラグインです。
 
 ## 要件
 - PHP 5.6 以上
-- WordPress 3.9.3 以上
+- WordPress 5.0 以上
 
 ## 導入手順
 1. [ZIPをダウンロード](https://github.com/technote-space/y-proofreading/archive/master.zip)

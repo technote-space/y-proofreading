@@ -14,6 +14,9 @@ if ( ! defined( 'Y_PROOFREADING' ) ) {
 
 return [
 
+	// required wordpress version
+	'required_wordpress_version'     => 5.0, // for gutenberg
+
 	// main menu title
 	'main_menu_title'                => 'Y Proofreading',
 

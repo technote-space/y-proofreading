@@ -33,15 +33,20 @@ Yahoo! API を使用した校正支援プラグインです。
 ### 校正機能の使用
 1. サイドバーの「文書タグ」の「校正」から実行します。  
 ![start-proofreading](https://raw.githubusercontent.com/technote-space/y-proofreading/images/assets/start-proofreading.png)
+
 2. 結果はサイドバーに表示されます。マウスのホバーで指摘事項がポップアップで表示されます。  
 ![content-result](https://raw.githubusercontent.com/technote-space/y-proofreading/images/assets/content-result.png)
+
 3. 『文章構成支援情報タブ』から指摘の一覧を見ることが可能です。  
 ![proofreading-info](https://raw.githubusercontent.com/technote-space/y-proofreading/images/assets/proofreading-info.png)
-4. 『精度実行』から再度校正を行うことができます。  
+
+4. 『再度実行』から再度校正を行うことができます。  
 ![re-proofreading](https://raw.githubusercontent.com/technote-space/y-proofreading/images/assets/re-proofreading.png)
+
 5. 右上の三点リーダー⇒『サイズ設定』からサイズ設定を行うことができます。  
 ![open-size-setting](https://raw.githubusercontent.com/technote-space/y-proofreading/images/assets/open-size-setting.png)  
 ![size-setting](https://raw.githubusercontent.com/technote-space/y-proofreading/images/assets/size-setting.png)
+
 6. プラグインの固定を外してしまった場合、右上の三点リーダー⇒『再度固定』から再度固定することができます。  
 ![size-setting](https://raw.githubusercontent.com/technote-space/y-proofreading/images/assets/pin-again.png)
 

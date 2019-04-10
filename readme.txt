@@ -28,6 +28,9 @@ This plugin needs PHP5.6 or higher.
 
 == Screenshots ==
 
+1. Proofreading
+2. Dashboard
+
 == Upgrade Notice ==
 
 == Changelog ==

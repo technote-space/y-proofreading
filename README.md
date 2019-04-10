@@ -9,6 +9,10 @@
 Yahoo! API を使用した校正支援プラグインです。
 
 ## スクリーンショット
+### 校正
+![Proofreading](https://raw.githubusercontent.com/technote-space/y-proofreading/images/assets/screenshot-1.gif)
+### ダッシュボード
+![Dashboard](https://raw.githubusercontent.com/technote-space/y-proofreading/images/assets/screenshot-2.png)
 
 ## 要件
 - PHP 5.6 以上
@@ -22,10 +26,40 @@ Yahoo! API を使用した校正支援プラグインです。
     1. https://developer.yahoo.co.jp/yconnect/v2/registration.html  
         アプリケーションの種類は「サーバーサイド」
     2. 管理画面左メニュー『Y Proofreading』⇒『ダッシュボード』に移動
-    3. 『Yahoo!API の Client ID』に取得した *Client ID* を入力して『更新』ボタンを押下
+    3. 『Yahoo!API の Client ID』に取得した *アプリケーションID* を入力して『更新』ボタンを押下  
+    (シークレットは使用しません)
 
 ## 使用方法
-今後追加予定
+### 校正機能の使用
+1. サイドバーの「文書タグ」の「校正」から実行します。  
+![start-proofreading](https://raw.githubusercontent.com/technote-space/y-proofreading/images/assets/start-proofreading.png)
+
+2. 結果はサイドバーに表示されます。マウスのホバーで指摘事項がポップアップで表示されます。  
+![content-result](https://raw.githubusercontent.com/technote-space/y-proofreading/images/assets/content-result.png)
+
+3. 『文章構成支援情報タブ』から指摘の一覧を見ることが可能です。  
+![proofreading-info](https://raw.githubusercontent.com/technote-space/y-proofreading/images/assets/proofreading-info.png)
+
+4. 『再度実行』から再度校正を行うことができます。  
+![re-proofreading](https://raw.githubusercontent.com/technote-space/y-proofreading/images/assets/re-proofreading.png)
+
+5. 右上の三点リーダー⇒『サイズ設定』からサイズ設定を行うことができます。  
+![open-size-setting](https://raw.githubusercontent.com/technote-space/y-proofreading/images/assets/open-size-setting.png)  
+![size-setting](https://raw.githubusercontent.com/technote-space/y-proofreading/images/assets/size-setting.png)
+
+6. プラグインの固定を外してしまった場合、右上の三点リーダー⇒『再度固定』から再度固定することができます。  
+![size-setting](https://raw.githubusercontent.com/technote-space/y-proofreading/images/assets/pin-again.png)
+
+## 設定
+![Dashboard](https://raw.githubusercontent.com/technote-space/y-proofreading/images/assets/screenshot-2.png)
+### Yahoo!API の Client ID
+https://developer.yahoo.co.jp/yconnect/v2/registration.html  
+取得したアプリケーションIDを設定します。
+### 除外する指摘
+不要な指摘事項を除外することができます。
+
+## Yahoo!API 構成支援
+https://developer.yahoo.co.jp/webapi/jlp/kousei/v1/kousei.html
 
 ## Author
 [GitHub (Technote)](https://github.com/technote-space)  

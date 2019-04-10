@@ -1,5 +1,5 @@
 /**
- * @version 0.0.5
+ * @version 0.0.7
  * @author Technote
  * @since 0.0.2
  * @copyright Technote All Rights Reserved
@@ -7,32 +7,16 @@
  * @link https://technote.space/
  */
 
-.tooltips {
-    display: block;
-    position: fixed;
-    z-index: 100001;
-    width: auto;
-    height: auto;
-    padding: 0.3em 0.5em;
-    color: #FFFFFF;
-    font-size: 1.4em;
-    background: #c72439;
-    border-radius: 0.5em;
-}
-
-.tooltips:after {
-    width: 100%;
-    content: "";
-    display: block;
-    position: absolute;
-    left: 0.5em;
-    top: -8px;
-    border-top: 8px solid transparent;
-    border-left: 8px solid #c72439;
+.proofreading-tooltip {
+    font-size: 1em;
 }
 
 .proofreading-item {
     cursor: pointer;
+    padding: 5px 12px;
+    margin: 3px 8px;
+    display: inline-block;
+    border: dotted 1px #888;
 }
 
 .proofreading-item.color1 {
@@ -107,12 +91,8 @@
     margin-top: 0;
 }
 
-.proofreading-items-table {
-
-}
-
-.proofreading-html-content {
-
+.proofreading-tab-panel {
+    width: 100%;
 }
 
 .proofreading-tab-panel .components-tab-panel__tabs,
@@ -178,30 +158,13 @@
         right: 0;
         top: 137px;
         bottom: 0;
-        width: auto;
-        max-width: 35%;
         overflow-y: auto;
         z-index: 100;
         padding-top: 0;
     }
 
-    .proofreading-info.components-panel__body.is-opened.size-small {
-        box-shadow: none;
-        width: 279px;
-    }
-
-    .proofreading-info.components-panel__body.is-opened.size-large {
-        width: auto;
-        max-width: 80%;
-    }
-
     .proofreading-info.components-panel__body.is-opened .proofreading-contents {
-        max-width: 600px;
-        margin-bottom: 4em;
-    }
-
-    .proofreading-info.components-panel__body.is-opened.size-large .proofreading-contents {
-        max-width: none;
+        max-width: 100%;
     }
 
     .proofreading-info.components-panel__body.is-opened .components-panel__body-title {

@@ -16,7 +16,7 @@ Yahoo! API を使用した校正支援プラグインです。
 
 ## 要件
 - PHP 5.6 以上
-- WordPress 3.9.3 以上
+- WordPress 5.0 以上
 
 ## 導入手順
 1. [ZIPをダウンロード](https://github.com/technote-space/y-proofreading/archive/master.zip)
@@ -31,13 +31,13 @@ Yahoo! API を使用した校正支援プラグインです。
 
 ## 使用方法
 ### 校正機能の使用
-1. サイドバーの「文書タグ」の「校正」から実行します。  
+1. サイドバーの「文書」タブの「校正」から実行します。  
 ![start-proofreading](https://raw.githubusercontent.com/technote-space/y-proofreading/images/assets/start-proofreading.png)
 
 2. 結果はサイドバーに表示されます。マウスのホバーで指摘事項がポップアップで表示されます。  
 ![content-result](https://raw.githubusercontent.com/technote-space/y-proofreading/images/assets/content-result.png)
 
-3. 『文章構成支援情報タブ』から指摘の一覧を見ることが可能です。  
+3. 『文章校正支援情報』タブから指摘の一覧を見ることが可能です。  
 ![proofreading-info](https://raw.githubusercontent.com/technote-space/y-proofreading/images/assets/proofreading-info.png)
 
 4. 『再度実行』から再度校正を行うことができます。  
@@ -58,7 +58,7 @@ https://developer.yahoo.co.jp/yconnect/v2/registration.html
 ### 除外する指摘
 不要な指摘事項を除外することができます。
 
-## Yahoo!API 構成支援
+## Yahoo!API 校正支援
 https://developer.yahoo.co.jp/webapi/jlp/kousei/v1/kousei.html
 
 ## 利用制限

@@ -61,6 +61,14 @@ https://developer.yahoo.co.jp/yconnect/v2/registration.html
 ## Yahoo!API 構成支援
 https://developer.yahoo.co.jp/webapi/jlp/kousei/v1/kousei.html
 
+## 利用制限
+プラグイン自体には特に利用制限はありませんが、利用している *Yahoo!API* 側に利用制限があります。  
+https://developer.yahoo.co.jp/appendix/rate.html
+### 1リクエストあたりの制限
+100KB
+### 24時間以内のリクエスト数制限
+50000件
+
 ## Author
 [GitHub (Technote)](https://github.com/technote-space)  
 [Blog](https://technote.space)

@@ -54,11 +54,16 @@ class Editor implements \WP_Framework_Core\Interfaces\Singleton, \WP_Framework_C
 	 */
 	private function get_editor_params() {
 		return [
-			'plugin_icon' => $this->get_img_url( 'icon-24x24.png' ),
-			'api_class'   => $this->get_api_class(),
-			'translate'   => $this->app->array->map( $this->app->array->combine( $this->get_translate_targets(), null ), function ( $value ) {
+			'plugin_icon'   => $this->get_img_url( 'icon-24x24.png' ),
+			'api_class'     => $this->get_api_class(),
+			'translate'     => $this->app->array->map( $this->app->array->combine( $this->get_translate_targets(), null ), function ( $value ) {
 				return $this->translate( $value );
 			} ),
+			'size_settings' => $this->get_gutenberg_config( 'size_settings' ),
+			'default_size'  => $this->get_gutenberg_config( 'default_size' ),
+			'min_width'     => $this->get_gutenberg_config( 'min_width' ),
+			'max_width'     => $this->get_gutenberg_config( 'max_width' ),
+			'target_media'  => $this->get_gutenberg_config( 'target_media' ),
 		];
 	}
 
@@ -84,6 +89,17 @@ class Editor implements \WP_Framework_Core\Interfaces\Singleton, \WP_Framework_C
 			'Proofread again',
 			'Detail info of indicated word',
 			'Candidates of rephrasing',
+			'In pixel',
+			'In percentage',
 		];
+	}
+
+	/**
+	 * @param string $name
+	 *
+	 * @return mixed
+	 */
+	private function get_gutenberg_config( $name ) {
+		return $this->apply_filters( $name, $this->app->get_config( 'gutenberg', $name ) );
 	}
 }

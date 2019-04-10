@@ -160,10 +160,10 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 				'info'    => (string) $value->ShitekiInfo,
 				'index'   => $this->app->array->get( $filters, (string) $value->ShitekiInfo . '.index', 0 ),
 			];
-			$h = $this->app->utility->create_hash( $r['surface'] . '-' . $r['word'] . '-' . $r['info'], 'proofreading' );
+			$h = $this->app->utility->create_hash( $r['index'] . '-' . $r['surface'] . '-' . $r['word'] . '-' . $r['info'], 'proofreading' );
 			if ( ! isset( $hash[ $h ] ) ) {
 				$hash[ $h ] = $index ++;
-				$items[]    = [ 'surface' => $r['surface'], 'word' => $r['word'], 'info' => $r['info'], 'index' => $index, 'hash' => $h ];
+				$items[]    = [ 'surface' => $r['surface'], 'word' => $r['word'], 'info' => $r['info'], 'index' => $r['index'], 'hash' => $h ];
 			}
 			$r['item_index'] = $hash[ $h ];
 			$summary[]       = $r;

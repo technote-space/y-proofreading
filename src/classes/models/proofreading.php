@@ -196,6 +196,10 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 			$fragments[] = [
 				'text' => mb_substr( $sentence, 0, $end ),
 			];
+		} else {
+			$fragments[] = [
+				'text' => $sentence,
+			];
 		}
 		$fragments = array_reverse( $fragments );
 

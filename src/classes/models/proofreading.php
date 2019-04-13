@@ -121,7 +121,9 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 			$content = preg_replace( '#<' . $target . '[^>]*?>[\s\S]*?</' . $target . '>#i', '', $content );
 		}
 		foreach ( $this->apply_filters( 'as_block_tags', [ 'li' ] ) as $target ) {
-			$content = preg_replace( '#<' . $target . '[^>]*?>([\s\S]*?)</' . $target . '>#i', "$1\n", $content );
+			do {
+				$content = preg_replace( '#<' . $target . '[^>]*?>([\s\S]*?)</' . $target . '>#i', "\n$1", $content, -1, $count );
+			} while ( $count > 0 );
 		}
 		$content = wp_strip_all_tags( $content );
 		$content = strip_shortcodes( $content );

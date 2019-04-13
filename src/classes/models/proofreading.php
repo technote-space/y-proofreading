@@ -166,7 +166,7 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 			];
 			$h = $this->app->utility->create_hash( $r['index'] . '-' . $r['surface'] . '-' . $r['word'] . '-' . $r['info'], 'proofreading' );
 			if ( ! isset( $hash[ $h ] ) ) {
-				$hash[ $h ] = $index ++;
+				$hash[ $h ] = $index++;
 				$items[]    = [ 'surface' => $r['surface'], 'word' => $r['word'], 'info' => $r['info'], 'index' => $r['index'], 'hash' => $h ];
 			}
 			$r['item_index'] = $hash[ $h ];
@@ -186,7 +186,7 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 				'item_index' => $r['item_index'],
 				'info'       => $r['info'],
 				'word'       => $r['word'],
-				'id'         => 'proofreading-tooltip-' . ( $index ++ ),
+				'id'         => 'proofreading-tooltip-' . ( $index++ ),
 			];
 			$end         = $r['start'];
 		}

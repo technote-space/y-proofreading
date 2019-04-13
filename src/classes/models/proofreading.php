@@ -1,7 +1,7 @@
 <?php /** @noinspection PhpUndefinedFieldInspection */
 
 /**
- * @version 0.0.7
+ * @version 0.0.9
  * @author Technote
  * @since 0.0.1
  * @copyright Technote All Rights Reserved
@@ -121,7 +121,9 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 			$content = preg_replace( '#<' . $target . '[^>]*?>[\s\S]*?</' . $target . '>#i', '', $content );
 		}
 		foreach ( $this->apply_filters( 'as_block_tags', [ 'li' ] ) as $target ) {
-			$content = preg_replace( '#<' . $target . '[^>]*?>([\s\S]*?)</' . $target . '>#i', "$1\n", $content );
+			do {
+				$content = preg_replace( '#<' . $target . '[^>]*?>([\s\S]*?)</' . $target . '>#i', "\n$1", $content, -1, $count );
+			} while ( $count > 0 );
 		}
 		$content = wp_strip_all_tags( $content );
 		$content = strip_shortcodes( $content );
@@ -166,7 +168,7 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 			];
 			$h = $this->app->utility->create_hash( $r['index'] . '-' . $r['surface'] . '-' . $r['word'] . '-' . $r['info'], 'proofreading' );
 			if ( ! isset( $hash[ $h ] ) ) {
-				$hash[ $h ] = $index ++;
+				$hash[ $h ] = $index++;
 				$items[]    = [ 'surface' => $r['surface'], 'word' => $r['word'], 'info' => $r['info'], 'index' => $r['index'], 'hash' => $h ];
 			}
 			$r['item_index'] = $hash[ $h ];
@@ -186,13 +188,17 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 				'item_index' => $r['item_index'],
 				'info'       => $r['info'],
 				'word'       => $r['word'],
-				'id'         => 'proofreading-tooltip-' . ( $index ++ ),
+				'id'         => 'proofreading-tooltip-' . ( $index++ ),
 			];
 			$end         = $r['start'];
 		}
 		if ( $end ) {
 			$fragments[] = [
 				'text' => mb_substr( $sentence, 0, $end ),
+			];
+		} else {
+			$fragments[] = [
+				'text' => $sentence,
 			];
 		}
 		$fragments = array_reverse( $fragments );

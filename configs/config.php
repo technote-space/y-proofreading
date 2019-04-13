@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 0.0.8
+ * @version 0.0.9
  * @author Technote
  * @since 0.0.1
  * @copyright Technote All Rights Reserved
@@ -24,7 +24,7 @@ return [
 	'db_version'                     => '0.0.1',
 
 	// update
-	'update_info_file_url'           => 'https://raw.githubusercontent.com/technote-space/y-proofreading/develop/update.json',
+	'update_info_file_url'           => 'https://raw.githubusercontent.com/technote-space/y-proofreading/master/update.json',
 
 	// menu image url
 	'menu_image'                     => 'icon-24x24.png',

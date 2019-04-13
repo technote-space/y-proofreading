@@ -2,7 +2,7 @@
 /**
  * WP_Framework_Common Classes Models Utility
  *
- * @version 0.0.44
+ * @version 0.0.45
  * @author Technote
  * @copyright Technote All Rights Reserved
  * @license http://www.opensource.org/licenses/gpl-2.0.php GNU General Public License, version 2
@@ -52,11 +52,12 @@ class Utility implements \WP_Framework_Core\Interfaces\Singleton {
 
 	/**
 	 * @param mixed $value
+	 * @param array $args
 	 *
 	 * @return mixed
 	 */
-	public function value( $value ) {
-		return $value instanceof \Closure ? $value( $this->app ) : $value;
+	public function value( $value, ...$args ) {
+		return $value instanceof \Closure ? $value( $this->app, ...$args ) : $value;
 	}
 
 	/**

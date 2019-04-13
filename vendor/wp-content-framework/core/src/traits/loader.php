@@ -2,7 +2,7 @@
 /**
  * WP_Framework_Core Traits Loader
  *
- * @version 0.0.52
+ * @version 0.0.53
  * @author Technote
  * @copyright Technote All Rights Reserved
  * @license http://www.opensource.org/licenses/gpl-2.0.php GNU General Public License, version 2
@@ -53,8 +53,8 @@ trait Loader {
 	private function namespace_to_dir( $namespace ) {
 		$namespace = ltrim( $namespace, '\\' );
 		$dir       = null;
-		if ( preg_match( "#\A{$this->app->define->plugin_namespace}#", $namespace ) ) {
-			$namespace = preg_replace( "#\A{$this->app->define->plugin_namespace}#", '', $namespace );
+		if ( preg_match( "#\A{$this->app->define->plugin_namespace}(.+)\z#", $namespace, $matches ) ) {
+			$namespace = $matches[1];
 			$dir       = $this->app->define->plugin_src_dir;
 		} else {
 			foreach ( $this->app->get_packages() as $package ) {
@@ -216,7 +216,7 @@ trait Loader {
 			return false;
 		}
 
-		if ( count( $setting ) >= 3 ) {
+		if ( count( $setting ) >= 3 && ! class_exists( $setting[0] ) ) {
 			/** @noinspection PhpIncludeInspection */
 			require_once $setting[2];
 		}

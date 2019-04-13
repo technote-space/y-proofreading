@@ -4,7 +4,7 @@ Plugin Name: Y Proofreading
 Plugin URI:
 Description: Yahoo! API を使用した校正支援プラグイン
 Author: Technote
-Version: 0.0.8
+Version: 0.0.9
 Author URI: https://technote.space
 Text Domain: y-proofreading
 Domain Path: /languages/

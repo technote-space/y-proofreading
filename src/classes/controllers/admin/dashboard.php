@@ -36,6 +36,7 @@ class Dashboard extends \WP_Framework_Admin\Classes\Controllers\Admin\Base {
 					return $value;
 				} ), 'index', 'display' ),
 			],
+			'use_admin_ajax',
 		];
 	}
 }

@@ -4,7 +4,7 @@ Tags: proofreading, Japanese, 校正
 Requires at least: 5.0
 Requires PHP: 5.6
 Tested up to: 5.2
-Stable tag: 0.0.10
+Stable tag: 0.0.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,6 +32,9 @@ This plugin needs PHP5.6 or higher.
 2. Dashboard
 
 == Upgrade Notice ==
+
+= 0.0.11 =
+* [すべての差分](https://github.com/technote-space/y-proofreading/pull/62)
 
 = 0.0.10 =
 * wp-json の代わりに admin-ajax.php を使用するかどうか の設定をダッシュボードに追加。 [詳細](https://github.com/technote-space/y-proofreading/issues/58)

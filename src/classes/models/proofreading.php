@@ -219,4 +219,11 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 			'message'   => $this->translate( 'Succeeded' ),
 		];
 	}
+
+	/**
+	 * @return bool
+	 */
+	public function delete_cache() {
+		return $this->cache_clear( null );
+	}
 }

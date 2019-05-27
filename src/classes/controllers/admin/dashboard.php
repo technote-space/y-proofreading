@@ -11,6 +11,7 @@
 namespace Y_Proofreading\Classes\Controllers\Admin;
 
 use WP_Framework_Admin\Classes\Controllers\Admin\Base;
+use Y_Proofreading\Classes\Models\Proofreading;
 
 if ( ! defined( 'Y_PROOFREADING' ) ) {
 	exit;
@@ -40,5 +41,29 @@ class Dashboard extends Base {
 			],
 			'use_admin_ajax',
 		];
+	}
+
+	/**
+	 * after update
+	 */
+	protected function after_update() {
+		$this->delete_cache();
+	}
+
+	/**
+	 * after delete
+	 */
+	protected function after_delete() {
+		$this->delete_cache();
+	}
+
+	/**
+	 * @return bool
+	 */
+	private function delete_cache() {
+		/** @var Proofreading $proofreading */
+		$proofreading = Proofreading::get_instance( $this->app );
+
+		return $proofreading->delete_cache();
 	}
 }

@@ -10,6 +10,11 @@
 
 namespace Y_Proofreading\Classes\Controllers\Api\Admin;
 
+use WP_Error;
+use WP_Framework_Api\Classes\Controllers\Api\Base;
+use WP_REST_Request;
+use WP_REST_Response;
+
 if ( ! defined( 'Y_PROOFREADING' ) ) {
 	exit;
 }
@@ -18,7 +23,7 @@ if ( ! defined( 'Y_PROOFREADING' ) ) {
  * Class Proofreading
  * @package Y_Proofreading\Classes\Controllers\Api\Admin
  */
-class Proofreading extends \WP_Framework_Api\Classes\Controllers\Api\Base {
+class Proofreading extends Base {
 
 	/**
 	 * @return string
@@ -74,14 +79,14 @@ class Proofreading extends \WP_Framework_Api\Classes\Controllers\Api\Base {
 	}
 
 	/**
-	 * @param \WP_REST_Request|array $params
+	 * @param WP_REST_Request|array $params
 	 *
-	 * @return int|\WP_Error|\WP_REST_Response
+	 * @return int|WP_Error|WP_REST_Response
 	 */
 	public function callback( $params ) {
 		/** @var \Y_Proofreading\Classes\Models\Proofreading $proofreading */
 		$proofreading = \Y_Proofreading\Classes\Models\Proofreading::get_instance( $this->app );
 
-		return new \WP_REST_Response( $proofreading->get_result( $params['sentence'] ) );
+		return new WP_REST_Response( $proofreading->get_result( $params['sentence'] ) );
 	}
 }

@@ -10,6 +10,8 @@
 
 namespace Y_Proofreading\Classes\Controllers\Admin;
 
+use WP_Framework_Admin\Classes\Controllers\Admin\Base;
+
 if ( ! defined( 'Y_PROOFREADING' ) ) {
 	exit;
 }
@@ -18,7 +20,7 @@ if ( ! defined( 'Y_PROOFREADING' ) ) {
  * Class Dashboard
  * @package Y_Proofreading\Classes\Controllers\Admin
  */
-class Dashboard extends \WP_Framework_Admin\Classes\Controllers\Admin\Base {
+class Dashboard extends Base {
 
 	use \WP_Framework_Admin\Traits\Dashboard;
 

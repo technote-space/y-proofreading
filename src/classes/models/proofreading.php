@@ -11,6 +11,14 @@
 
 namespace Y_Proofreading\Classes\Models;
 
+use Exception;
+use RuntimeException;
+use SimpleXMLElement;
+use WP_Framework_Common\Traits\Package;
+use WP_Framework_Core\Traits\Hook;
+use WP_Framework_Core\Traits\Singleton;
+use WP_Framework_Presenter\Traits\Presenter;
+
 if ( ! defined( 'Y_PROOFREADING' ) ) {
 	exit;
 }
@@ -21,7 +29,7 @@ if ( ! defined( 'Y_PROOFREADING' ) ) {
  */
 class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Framework_Core\Interfaces\Hook, \WP_Framework_Presenter\Interfaces\Presenter {
 
-	use \WP_Framework_Core\Traits\Singleton, \WP_Framework_Core\Traits\Hook, \WP_Framework_Presenter\Traits\Presenter, \WP_Framework_Common\Traits\Package;
+	use Singleton, Hook, Presenter, Package;
 
 	/**
 	 * @return bool
@@ -38,7 +46,7 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 	public function get_result( $content ) {
 		try {
 			if ( ! $this->is_valid() ) {
-				throw new \Exception( $this->translate( 'Not available' ) );
+				throw new Exception( $this->translate( 'Not available' ) );
 			}
 
 			$sentence = $this->get_sentence( $content );
@@ -56,7 +64,7 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 			$this->cache_set( $hash, $result, false, 3600 );
 
 			return $result;
-		} catch ( \Exception $e ) {
+		} catch ( Exception $e ) {
 			return [
 				'result'  => false,
 				'message' => $e->getMessage(),
@@ -68,7 +76,7 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 	 * @param string $sentence
 	 *
 	 * @return array
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	private function request( $sentence ) {
 		$url       = $this->app->get_config( 'yahoo', 'request_url' );
@@ -94,15 +102,15 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 		curl_close( $ch );
 
 		if ( CURLE_OK !== $errno ) {
-			throw new \RuntimeException( $error, $errno );
+			throw new RuntimeException( $error, $errno );
 		}
 		if ( false === $results ) {
-			throw new \Exception( $this->translate( 'Invalid API Response.' ) );
+			throw new Exception( $this->translate( 'Invalid API Response.' ) );
 		}
 
-		$results = new \SimpleXMLElement( $results );
+		$results = new SimpleXMLElement( $results );
 		if ( $results->Message ) {
-			throw new \Exception( (string) $results->Message );
+			throw new Exception( (string) $results->Message );
 		}
 
 		return $this->parse_result( $sentence, $results );
@@ -140,7 +148,7 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 
 	/**
 	 * @param string $sentence
-	 * @param \SimpleXMLElement $results
+	 * @param SimpleXMLElement $results
 	 *
 	 * @return array
 	 */

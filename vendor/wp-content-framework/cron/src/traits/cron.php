@@ -2,7 +2,7 @@
 /**
  * WP_Framework_Cron Traits Cron
  *
- * @version 0.0.10
+ * @version 0.0.12
  * @author Technote
  * @copyright Technote All Rights Reserved
  * @license http://www.opensource.org/licenses/gpl-2.0.php GNU General Public License, version 2
@@ -11,6 +11,11 @@
 
 namespace WP_Framework_Cron\Traits;
 
+use WP_Framework;
+use WP_Framework_Common\Traits\Uninstall;
+use WP_Framework_Core\Traits\Hook;
+use WP_Framework_Core\Traits\Singleton;
+
 if ( ! defined( 'WP_CONTENT_FRAMEWORK' ) ) {
 	exit;
 }
@@ -18,11 +23,11 @@ if ( ! defined( 'WP_CONTENT_FRAMEWORK' ) ) {
 /**
  * Trait Cron
  * @package WP_Framework_Cron\Traits
- * @property \WP_Framework $app
+ * @property WP_Framework $app
  */
 trait Cron {
 
-	use \WP_Framework_Core\Traits\Singleton, \WP_Framework_Core\Traits\Hook, \WP_Framework_Common\Traits\Uninstall;
+	use Singleton, Hook, Uninstall;
 
 	/**
 	 * initialize

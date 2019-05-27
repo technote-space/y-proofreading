@@ -2,7 +2,7 @@
 /**
  * WP_Framework_Log Configs Setting
  *
- * @version 0.0.1
+ * @version 0.0.16
  * @author Technote
  * @copyright Technote All Rights Reserved
  * @license http://www.opensource.org/licenses/gpl-2.0.php GNU General Public License, version 2
@@ -22,8 +22,8 @@ return [
 					'label'   => 'Whether log is valid or not.',
 					'type'    => 'bool',
 					'default' => function ( $app ) {
-						/** @var \WP_Framework $app */
-						return ! empty( $app->utility->definedv( 'WP_DEBUG' ) );
+						/** @var WP_Framework $app */
+						return $app->utility->defined( 'WP_DEBUG' );
 					},
 				],
 				'save_log_term'          => [
@@ -40,7 +40,7 @@ return [
 					'label'   => 'Whether to capture shutdown error.',
 					'type'    => 'bool',
 					'default' => function ( $app ) {
-						/** @var \WP_Framework $app */
+						/** @var WP_Framework $app */
 						return ! empty( $app->get_config( 'config', 'capture_shutdown_error' ) );
 					},
 				],

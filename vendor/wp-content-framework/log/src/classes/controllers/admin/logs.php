@@ -2,7 +2,7 @@
 /**
  * WP_Framework_Log Classes Controller Admin Logs
  *
- * @version 0.0.12
+ * @version 0.0.16
  * @author Technote
  * @copyright Technote All Rights Reserved
  * @license http://www.opensource.org/licenses/gpl-2.0.php GNU General Public License, version 2
@@ -10,6 +10,9 @@
  */
 
 namespace WP_Framework_Log\Classes\Controllers\Admin;
+
+use WP_Framework_Admin\Classes\Controllers\Admin\Base;
+use WP_Framework_Log\Traits\Package;
 
 if ( ! defined( 'WP_CONTENT_FRAMEWORK' ) ) {
 	exit;
@@ -19,9 +22,9 @@ if ( ! defined( 'WP_CONTENT_FRAMEWORK' ) ) {
  * Class Logs
  * @package WP_Framework_Log\Classes\Controllers\Admin
  */
-class Logs extends \WP_Framework_Admin\Classes\Controllers\Admin\Base {
+class Logs extends Base {
 
-	use \WP_Framework_Log\Traits\Package;
+	use Package;
 
 	/**
 	 * @return int

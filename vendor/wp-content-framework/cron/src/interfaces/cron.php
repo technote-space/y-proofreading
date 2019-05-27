@@ -2,7 +2,7 @@
 /**
  * WP_Framework_Cron Interfaces Cron
  *
- * @version 0.0.1
+ * @version 0.0.12
  * @author Technote
  * @copyright Technote All Rights Reserved
  * @license http://www.opensource.org/licenses/gpl-2.0.php GNU General Public License, version 2
@@ -10,6 +10,10 @@
  */
 
 namespace WP_Framework_Cron\Interfaces;
+
+use WP_Framework_Common\Interfaces\Uninstall;
+use WP_Framework_Core\Interfaces\Hook;
+use WP_Framework_Core\Interfaces\Singleton;
 
 if ( ! defined( 'WP_CONTENT_FRAMEWORK' ) ) {
 	exit;
@@ -19,7 +23,7 @@ if ( ! defined( 'WP_CONTENT_FRAMEWORK' ) ) {
  * Interface Cron
  * @package WP_Framework_Cron\Interfaces
  */
-interface Cron extends \WP_Framework_Core\Interfaces\Singleton, \WP_Framework_Core\Interfaces\Hook, \WP_Framework_Common\Interfaces\Uninstall {
+interface Cron extends Singleton, Hook, Uninstall {
 
 	/**
 	 * run

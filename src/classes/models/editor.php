@@ -56,41 +56,32 @@ class Editor implements \WP_Framework_Core\Interfaces\Singleton, \WP_Framework_C
 		return [
 			'plugin_icon'   => $this->get_img_url( 'icon-24x24.png' ),
 			'api_class'     => $this->get_api_class(),
-			'translate'     => $this->app->array->map( $this->app->array->combine( $this->get_translate_targets(), null ), function ( $value ) {
-				return $this->translate( $value );
-			} ),
+			'translate'     => $this->get_translate_data( [
+				'Y Proofreading',
+				'Proofreading',
+				'Loading...',
+				'Proofreading info',
+				'Proofreading contents',
+				'Target surface',
+				'Candidates of rephrasing',
+				'Detail info of indicated word',
+				'Item not found',
+				'Small',
+				'Middle',
+				'Large',
+				'Size setting',
+				'Pin again',
+				'Proofread again',
+				'Detail info of indicated word',
+				'Candidates of rephrasing',
+				'In pixel',
+				'In percentage',
+			] ),
 			'size_settings' => $this->get_gutenberg_config( 'size_settings' ),
 			'default_size'  => $this->get_gutenberg_config( 'default_size' ),
 			'min_width'     => $this->get_gutenberg_config( 'min_width' ),
 			'max_width'     => $this->get_gutenberg_config( 'max_width' ),
 			'target_media'  => $this->get_gutenberg_config( 'target_media' ),
-		];
-	}
-
-	/**
-	 * @return array
-	 */
-	private function get_translate_targets() {
-		return [
-			'Y Proofreading',
-			'Proofreading',
-			'Loading...',
-			'Proofreading info',
-			'Proofreading contents',
-			'Target surface',
-			'Candidates of rephrasing',
-			'Detail info of indicated word',
-			'Item not found',
-			'Small',
-			'Middle',
-			'Large',
-			'Size setting',
-			'Pin again',
-			'Proofread again',
-			'Detail info of indicated word',
-			'Candidates of rephrasing',
-			'In pixel',
-			'In percentage',
 		];
 	}
 

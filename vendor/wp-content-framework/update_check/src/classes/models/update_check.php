@@ -2,7 +2,7 @@
 /**
  * WP_Framework_Update_Check Classes Models Update_Check
  *
- * @version 0.0.3
+ * @version 0.0.5
  * @author Technote
  * @copyright Technote All Rights Reserved
  * @license http://www.opensource.org/licenses/gpl-2.0.php GNU General Public License, version 2
@@ -10,6 +10,12 @@
  */
 
 namespace WP_Framework_Update_Check\Classes\Models;
+
+use /** @noinspection PhpUndefinedClassInspection */
+	Puc_v4_Factory;
+use WP_Framework_Core\Traits\Hook;
+use WP_Framework_Core\Traits\Singleton;
+use WP_Framework_Update_Check\Traits\Package;
 
 if ( ! defined( 'WP_CONTENT_FRAMEWORK' ) ) {
 	exit;
@@ -21,7 +27,7 @@ if ( ! defined( 'WP_CONTENT_FRAMEWORK' ) ) {
  */
 class Update_Check implements \WP_Framework_Core\Interfaces\Singleton, \WP_Framework_Core\Interfaces\Hook {
 
-	use \WP_Framework_Core\Traits\Singleton, \WP_Framework_Core\Traits\Hook, \WP_Framework_Update_Check\Traits\Package;
+	use Singleton, Hook, Package;
 
 	/**
 	 * setup update
@@ -30,14 +36,14 @@ class Update_Check implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 	private function setup_update() {
 		$update_info_file_url = $this->app->get_config( 'config', 'update_info_file_url' );
 		if ( ! empty( $update_info_file_url ) ) {
-			$key = $this->app->is_theme ? 'ThemeURI' : 'PluginURI';
-			$uri = $this->app->get_plugin_data( $key );
+			$uri = $this->app->get_plugin_uri();
 			if ( ! empty( $uri ) && $this->app->string->starts_with( $uri, 'https://wordpress.org' ) ) {
 				$this->app->setting->edit_setting( 'check_update', 'default', false );
 			}
 
 			if ( $this->apply_filters( 'check_update' ) ) {
-				\Puc_v4_Factory::buildUpdateChecker(
+				/** @noinspection PhpUndefinedClassInspection */
+				Puc_v4_Factory::buildUpdateChecker(
 					$update_info_file_url,
 					$this->app->plugin_file,
 					$this->app->plugin_name

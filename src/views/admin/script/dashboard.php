@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 0.0.7
+ * @version 0.0.12
  * @author Technote
  * @since 0.0.7
  * @copyright Technote All Rights Reserved
@@ -8,10 +8,12 @@
  * @link https://technote.space/
  */
 
+use WP_Framework_Presenter\Interfaces\Presenter;
+
 if ( ! defined( 'Y_PROOFREADING' ) ) {
 	return;
 }
-/** @var \WP_Framework_Presenter\Interfaces\Presenter $instance */
+/** @var Presenter $instance */
 ?>
 <script>
 	( function ( $ ) {

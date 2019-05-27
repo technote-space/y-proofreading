@@ -2,7 +2,7 @@
 /**
  * WP_Framework_Log Classes Models Log
  *
- * @version 0.0.13
+ * @version 0.0.16
  * @author Technote
  * @copyright Technote All Rights Reserved
  * @license http://www.opensource.org/licenses/gpl-2.0.php GNU General Public License, version 2
@@ -10,6 +10,12 @@
  */
 
 namespace WP_Framework_Log\Classes\Models;
+
+use WP_Framework_Core\Traits\Hook;
+use WP_Framework_Core\Traits\Singleton;
+use WP_Framework_Log\Traits\Package;
+use WP_Framework_Presenter\Traits\Presenter;
+use WP_User;
 
 if ( ! defined( 'WP_CONTENT_FRAMEWORK' ) ) {
 	exit;
@@ -21,7 +27,7 @@ if ( ! defined( 'WP_CONTENT_FRAMEWORK' ) ) {
  */
 class Log implements \WP_Framework_Core\Interfaces\Singleton, \WP_Framework_Core\Interfaces\Hook, \WP_Framework_Presenter\Interfaces\Presenter {
 
-	use \WP_Framework_Core\Traits\Singleton, \WP_Framework_Core\Traits\Hook, \WP_Framework_Presenter\Traits\Presenter, \WP_Framework_Log\Traits\Package;
+	use Singleton, Hook, Presenter, Package;
 
 	/**
 	 * @var bool $_is_logging
@@ -111,13 +117,7 @@ class Log implements \WP_Framework_Core\Interfaces\Singleton, \WP_Framework_Core
 		$data['php_version']        = phpversion();
 		$data['wordpress_version']  = $this->wp_version();
 		$data['level']              = $level;
-		$data['framework_packages'] = json_encode( $this->app->array->combine( array_map( function ( $package ) {
-			/** @var \WP_Framework\Package_Base $package */
-			return [
-				'version' => $package->get_version(),
-				'package' => $package->get_package(),
-			];
-		}, $this->app->get_packages() ), 'package', 'version' ) );
+		$data['framework_packages'] = json_encode( $this->app->get_package_versions() );
 		if ( isset( $context ) ) {
 			$data['context'] = json_encode( $context );
 		}
@@ -198,7 +198,7 @@ class Log implements \WP_Framework_Core\Interfaces\Singleton, \WP_Framework_Core
 		$emails = array_combine( $emails, $emails );
 		foreach ( $roles as $role ) {
 			foreach ( get_users( [ 'role' => $role ] ) as $user ) {
-				/** @var \WP_User $user */
+				/** @var WP_User $user */
 				! empty( $user->user_email ) and $emails[ $user->user_email ] = $user->user_email;
 			}
 		}

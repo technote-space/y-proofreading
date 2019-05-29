@@ -20,9 +20,6 @@ return [
 	// main menu title
 	'main_menu_title'                => 'Y Proofreading',
 
-	// db version
-	'db_version'                     => '0.0.1',
-
 	// update
 	'update_info_file_url'           => 'https://raw.githubusercontent.com/technote-space/y-proofreading/master/update.json',
 

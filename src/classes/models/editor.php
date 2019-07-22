@@ -1,8 +1,6 @@
 <?php
 /**
- * @version 0.0.12
  * @author Technote
- * @since 0.0.1
  * @copyright Technote All Rights Reserved
  * @license http://www.opensource.org/licenses/gpl-2.0.php GNU General Public License, version 2
  * @link https://technote.space/
@@ -29,8 +27,9 @@ class Editor implements \WP_Framework_Core\Interfaces\Singleton, \WP_Framework_C
 
 	/**
 	 * enqueue css for gutenberg
+	 * @noinspection PhpUnusedPrivateMethodInspection
+	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
 	 */
-	/** @noinspection PhpUnusedPrivateMethodInspection */
 	private function enqueue_block_editor_assets() {
 		/** @var Proofreading $proofreading */
 		$proofreading = Proofreading::get_instance( $this->app );
@@ -38,9 +37,9 @@ class Editor implements \WP_Framework_Core\Interfaces\Singleton, \WP_Framework_C
 			return;
 		}
 
-		$handle = 'yproofreading';
+		$handle = 'y-proofreading';
 		$this->enqueue_style( $handle, 'gutenberg.css', [], $this->app->get_plugin_version() );
-		$this->enqueue_script( $handle, 'yproofreading.min.js', [
+		$this->enqueue_script( $handle, 'y-proofreading.min.js', [
 			'wp-editor',
 			'wp-edit-post',
 			'wp-data',

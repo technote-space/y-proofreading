@@ -36,9 +36,9 @@ class Editor implements \WP_Framework_Core\Interfaces\Singleton, \WP_Framework_C
 			return;
 		}
 
-		$handle = 'yproofreading';
+		$handle = 'y-proofreading';
 		$this->enqueue_style( $handle, 'gutenberg.css', [], $this->app->get_plugin_version() );
-		$this->enqueue_script( $handle, 'yproofreading.min.js', [
+		$this->enqueue_script( $handle, 'y-proofreading.min.js', [
 			'wp-editor',
 			'wp-edit-post',
 			'wp-data',

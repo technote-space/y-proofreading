@@ -4,3 +4,4 @@ src/
 *.config.js
 package.json
 package-lock.json
+.babelrc

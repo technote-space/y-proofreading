@@ -2,6 +2,6 @@ Order Deny,Allow
 Deny from all
 
 #allow access to assets
-<Files yproofreading.min.js>
+<Files y-proofreading.min.js>
     Allow from all
 </Files>

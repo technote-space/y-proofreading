@@ -1,0 +1,69 @@
+language: php
+
+sudo: false
+dist: trusty
+
+git:
+  depth: 3
+
+notifications:
+  email: false
+  slack:
+    secure: VRgYJteKWcJp+AgI8zjKStJ8YYS40OtocfuPH4Kbu/eWJrr9g3xLCdzn+b31iaM6pZtk2WfvXuADfoKsl8g/QLAyPoO+k8QxXmtpPFjiFrO3NnKywMORZbly4aOILKPZBJK3e9v1D7GyouL3/1g9wTr68v6AVFJbY339PGGwuHKc/5iUbtzfum9XTLLrBJmvStAP7l58/vX3aJrqUgKUGDf+TMwDuEX4ZKz/uXHPn0Yto0jZg8rUyYBhRGhXXkbmZO6lhVJ6kUgd3/7c3YrzLQHXy1nzzCljrO1pAOdl5hygmhJLia6GGUbphMBgCDryF/NH7qlp6BtFJTTA3nS3aYgaEInThQtDOlBojUqyC3ZJwmGCI7mWFj8nPcJPyHRto513lzU25K9lVdjfOXyH/+iBDIam6h+HcR++UtlhWbSTxtUqa0Izvc+1pJMfbWIYu1HPolz1kg4RTYttQIeJDQnLpEd5Y/j1QCc8alLfTnnKze1eB2coG9SLhtInZKsVe+Q3nPQuoKQF3aFz9z45C0lfgGF8FdHi2vqycmSDiKqxEbWfDiRgAAOXQNtuPSnGj6t3zStyytjuzQzvt2VaGcLL0Tpl7ryTi5kzEmzOPv9lBeOnhTF/BZdzFSRRUCWgwK4BpmTGClBskR825K4lJ21eXIaGNEIECWstRK49icI=
+
+branches:
+  only:
+    - master
+    - "/^v[0-9\\.]+/"
+
+cache:
+  yarn: true
+  directories:
+    - "${HOME}/.composer/cache"
+    - node_modules
+    - "${TRAVIS_BUILD_DIR}/.plugin"
+    - "${TRAVIS_BUILD_DIR}/.work/cache"
+
+stages:
+  - name: check
+    if: branch = master and tag IS blank and type IN (pull_request, api, cron)
+  - name: deploy
+    if: tag IS present
+
+before_script:
+  - git clone --depth=1 https://github.com/wp-content-framework/travis-ci.git travis-ci
+  - bash travis-ci/bin/prepare.sh
+
+jobs:
+  fast_finish: true
+  include:
+    - stage: check
+      language: php
+      php: '7.2'
+      script: bash travis-ci/bin/php/phpcs.sh
+    - stage: check
+      language: php
+      php: '7.2'
+      script: bash travis-ci/bin/php/phpmd.sh
+
+
+    - stage: deploy
+      language: node_js
+      node_js: '11'
+      dist: trusty
+      script: skip
+      before_deploy:
+        - source travis-ci/bin/deploy/env.sh
+        - bash travis-ci/bin/deploy/create.sh
+      deploy:
+        provider: releases
+        skip_cleanup: true
+        name: ${RELEASE_TITLE}
+        tag_name: ${RELEASE_TAG}
+        draft: true
+        api_key:
+          secure: WaZLEOg/JO/FUr57BwhbLGDZi4hB0J7ATBeqO3MHrGeDyEUFLE3SvDU8Ejg7bVnM/vvuk7eo3PYZINKmcxO0ucrnsrEWbPjQ07QtG/y+QY17CZv0dWBbWiExV+o7QEX/20JGfg6JfgVNweXPSyaX3To2UUAwTvaXiylMA2FF+2FBYxQG7rDClgEH08WXCuXxemdAzXGwkjNzQTKPTl+K4be2JWIwDP+7azOXSF9tbAF0DbuPt1+a8xJK65wo00sW+XKC7Q9UD0s4b6XN0iBl0lfYaX3a7UVT4zRk5Nmsrf2AmB3PAsVbD24J4uF6U2/OZ8M6b/tXwRPGIM9gdRNPvrDim8q3yk2WfyllhRugF32mc+JFxbtnn4arFPPeEItF3Tr/4a06kNel6R/meDtkcpY7cVRiVAm+uN4AGX0DHNKrxdVDvfdFmJajPYHMA4QSGGZeOaPPy5++o5tODobTzFzqKIShSk1x6tJwcOZH3LD663DT2e7p39Uokt1gZQg8V39y02GyqvX0s2d5adVqjxADsNI1djzOoyeq3CZVmHVqJJbIvAUwjhy8S00eFyk81tW9HIO0Ezg6q2wrqT5jE/In1hpq1bmihztGQ64kYnqodtwWZaYm7RQbXTufLJJEokCPItOBisCIMR+w2IeenW5qWNzSv+oCH037J5BLD2w=
+        file: ${RELEASE_FILE}
+        overwrite: true
+        on:
+          tags: true

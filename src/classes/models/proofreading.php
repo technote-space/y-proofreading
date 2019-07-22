@@ -87,27 +87,24 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 			$params['no_filter'] = $no_filter;
 		}
 
-		$ch = curl_init( $url );
-		curl_setopt_array( $ch, [
-			CURLOPT_POST           => true,
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_USERAGENT      => "Yahoo AppID: {$client_id}",
-			CURLOPT_POSTFIELDS     => http_build_query( $params ),
+		$response = wp_remote_post( $url, [
+			'user-agent'  => "Yahoo AppID: {$client_id}",
+			'body'        => $params,
+			'data_format' => 'query',
 		] );
-		$results = curl_exec( $ch );
-		$errno   = curl_errno( $ch );
-		$error   = curl_error( $ch );
-		curl_close( $ch );
 
-		if ( CURLE_OK !== $errno ) {
-			throw new RuntimeException( $error, $errno );
-		}
-		if ( false === $results ) {
-			throw new Exception( $this->translate( 'Invalid API Response.' ) );
+		if ( is_wp_error( $response ) ) {
+			throw new Exception( $response->get_error_message() );
 		}
 
-		$results = new SimpleXMLElement( $results );
+		if ( empty( $response['response']['code'] ) || 200 !== $response['response']['code'] ) {
+			throw new Exception( $response['response']['message'] );
+		}
+
+		$results = new SimpleXMLElement( $response ['body'] );
+		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		if ( $results->Message ) {
+			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 			throw new Exception( (string) $results->Message );
 		}
 
@@ -156,26 +153,40 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 		$hash    = [];
 		$summary = [];
 		$filters = $this->app->get_config( 'yahoo', 'filter' );
+		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		foreach ( $results->Result as $value ) {
+			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 			$start = (int) $value->StartPos;
-			$len   = (int) $value->Length;
+			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			$len = (int) $value->Length;
+			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 			if ( '' === (string) $value->Surface ) {
 				$surface = mb_substr( $sentence, $start, $len );
 			} else {
+				// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				$surface = (string) $value->Surface;
 			}
 			$r = [
 				'start'   => $start,
 				'end'     => $start + $len,
 				'surface' => $surface,
+				// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				'word'    => (string) $value->ShitekiWord,
+				// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				'info'    => (string) $value->ShitekiInfo,
+				// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				'index'   => $this->app->array->get( $filters, (string) $value->ShitekiInfo . '.index', 0 ),
 			];
 			$h = $this->app->utility->create_hash( $r['index'] . '-' . $r['surface'] . '-' . $r['word'] . '-' . $r['info'], 'proofreading' );
 			if ( ! isset( $hash[ $h ] ) ) {
 				$hash[ $h ] = $index++;
-				$items[]    = [ 'surface' => $r['surface'], 'word' => $r['word'], 'info' => $r['info'], 'index' => $r['index'], 'hash' => $h ];
+				$items[]    = [
+					'surface' => $r['surface'],
+					'word'    => $r['word'],
+					'info'    => $r['info'],
+					'index'   => $r['index'],
+					'hash'    => $h,
+				];
 			}
 			$r['item_index'] = $hash[ $h ];
 			$summary[]       = $r;

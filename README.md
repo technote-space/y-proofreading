@@ -13,8 +13,28 @@ Yahoo! API を使用した校正支援プラグインです。
 
 [最新バージョン](https://github.com/technote-space/y-proofreading/releases/latest/download/release.zip)
 
-<!-- START doctoc -->
-<!-- END doctoc -->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
+
+- [スクリーンショット](#%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88)
+  - [校正](#%E6%A0%A1%E6%AD%A3)
+  - [ダッシュボード](#%E3%83%80%E3%83%83%E3%82%B7%E3%83%A5%E3%83%9C%E3%83%BC%E3%83%89)
+- [要件](#%E8%A6%81%E4%BB%B6)
+- [導入手順](#%E5%B0%8E%E5%85%A5%E6%89%8B%E9%A0%86)
+- [使用方法](#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95)
+  - [校正機能の使用](#%E6%A0%A1%E6%AD%A3%E6%A9%9F%E8%83%BD%E3%81%AE%E4%BD%BF%E7%94%A8)
+- [設定](#%E8%A8%AD%E5%AE%9A)
+  - [Yahoo!API の Client ID](#yahooapi-%E3%81%AE-client-id)
+  - [除外する指摘](#%E9%99%A4%E5%A4%96%E3%81%99%E3%82%8B%E6%8C%87%E6%91%98)
+- [Yahoo!API 校正支援](#yahooapi-%E6%A0%A1%E6%AD%A3%E6%94%AF%E6%8F%B4)
+- [利用制限](#%E5%88%A9%E7%94%A8%E5%88%B6%E9%99%90)
+  - [1リクエストあたりの制限](#1%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88%E3%81%82%E3%81%9F%E3%82%8A%E3%81%AE%E5%88%B6%E9%99%90)
+  - [24時間以内のリクエスト数制限](#24%E6%99%82%E9%96%93%E4%BB%A5%E5%86%85%E3%81%AE%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88%E6%95%B0%E5%88%B6%E9%99%90)
+- [Author](#author)
+- [プラグイン作成用フレームワーク](#%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E4%BD%9C%E6%88%90%E7%94%A8%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0%E3%83%AF%E3%83%BC%E3%82%AF)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## スクリーンショット
 ### 校正

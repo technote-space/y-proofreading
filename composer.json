@@ -31,17 +31,23 @@
   },
   "scripts": {
     "setup": [
-      "composer install --no-dev"
+      "@prepare"
+    ],
+    "prepare": [
+      "@prepare:php"
+    ],
+    "prepare:php": [
+      "composer install --no-interaction --prefer-dist --no-suggest"
     ],
     "test": [
+      "@stage-lint"
+    ],
+    "stage-lint": [
       "@phpcs",
       "@phpmd"
     ],
     "phpcs": [
       "phpcs --standard=./phpcs.xml"
-    ],
-    "fix": [
-      "phpcbf --standard=./phpcs.xml"
     ],
     "phpmd": [
       "phpmd ./src/,./configs/ text phpmd.xml"

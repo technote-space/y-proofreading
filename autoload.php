@@ -1,14 +1,14 @@
 <?php
-/*
-Plugin Name: Y Proofreading
-Plugin URI:
-Description: Yahoo! API を使用した校正支援プラグイン
-Author: Technote
-Version: 0.0.13
-Author URI: https://technote.space
-Text Domain: y-proofreading
-Domain Path: /languages/
-*/
+/**
+ * Plugin Name: Y Proofreading
+ * Plugin URI:
+ * Description: Yahoo! API を使用した校正支援プラグイン
+ * Author: Technote
+ * Version: 0.1.0
+ * Author URI: https://technote.space
+ * Text Domain: y-proofreading
+ * Domain Path: /languages/
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

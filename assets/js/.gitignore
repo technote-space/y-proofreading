@@ -1,7 +1,8 @@
 node_modules/
 src/
+coverage/
 
 *.config.js
 package.json
-package-lock.json
+yarn.lock
 .babelrc

@@ -1,5 +1,6 @@
 # Y Proofreading
 
+[![Build Status](https://github.com/technote-space/y-proofreading/workflows/Build/badge.svg)](https://github.com/technote-space/y-proofreading/actions)
 [![Build Status](https://travis-ci.com/technote-space/y-proofreading.svg?branch=master)](https://travis-ci.com/technote-space/y-proofreading)
 [![CodeFactor](https://www.codefactor.io/repository/github/technote-space/y-proofreading/badge)](https://www.codefactor.io/repository/github/technote-space/y-proofreading)
 [![License: GPL v2+](https://img.shields.io/badge/License-GPL%20v2%2B-blue.svg)](http://www.gnu.org/licenses/gpl-2.0.html)
@@ -10,7 +11,10 @@
 
 Yahoo! API を使用した校正支援プラグインです。
 
-[最新バージョン](https://github.com/technote-space/y-proofreading/releases/latest/download/y-proofreading.zip)
+[最新バージョン](https://github.com/technote-space/y-proofreading/releases/latest/download/release.zip)
+
+<!-- START doctoc -->
+<!-- END doctoc -->
 
 ## スクリーンショット
 ### 校正
@@ -24,7 +28,7 @@ Yahoo! API を使用した校正支援プラグインです。
 
 ## 導入手順
 1. 最新版をGitHubからダウンロード  
-[y-proofreading.zip](https://github.com/technote-space/y-proofreading/releases/latest/download/y-proofreading.zip)
+[release.zip](https://github.com/technote-space/y-proofreading/releases/latest/download/release.zip)
 2. 「プラグインのアップロード」からインストール
 ![install](https://raw.githubusercontent.com/technote-space/screenshots/master/misc/install-wp-plugin.png)
 3. プラグインを有効化 

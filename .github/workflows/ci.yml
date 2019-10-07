@@ -12,19 +12,17 @@ jobs:
   phpcs:
     name: PHP Code Sniffer
     runs-on: ubuntu-latest
+    env:
+      CI: 1
+      TRAVIS_BUILD_DIR: ${{ github.workspace }}
     steps:
       - uses: actions/checkout@v1
         with:
-          fetch-depth: 2
+          fetch-depth: 3
       - name: Prepare setting
         run: git clone --depth=1 https://github.com/wp-content-framework/travis-ci.git travis-ci && bash travis-ci/bin/prepare.sh
-        env:
-          CI: 1
-          TRAVIS_BUILD_DIR: ${{ github.workspace }}
-      - name: Install Composer dependencies
-        run: composer prepare:php
       - name: Check code style
-        run: composer phpcs
+        run: bash travis-ci/bin/php/phpcs.sh
       - uses: 8398a7/action-slack@v1
         with:
           type: failure
@@ -35,19 +33,17 @@ jobs:
   phpmd:
     name: PHPMD
     runs-on: ubuntu-latest
+    env:
+      CI: 1
+      TRAVIS_BUILD_DIR: ${{ github.workspace }}
     steps:
       - uses: actions/checkout@v1
         with:
-          fetch-depth: 2
+          fetch-depth: 3
       - name: Prepare setting
         run: git clone --depth=1 https://github.com/wp-content-framework/travis-ci.git travis-ci && bash travis-ci/bin/prepare.sh
-        env:
-          CI: 1
-          TRAVIS_BUILD_DIR: ${{ github.workspace }}
-      - name: Install Composer dependencies
-        run: composer prepare:php
       - name: Check code style
-        run: composer phpmd
+        run: bash travis-ci/bin/php/phpmd.sh
       - uses: 8398a7/action-slack@v1
         with:
           type: failure

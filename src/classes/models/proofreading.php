@@ -10,7 +10,6 @@
 namespace Y_Proofreading\Classes\Models;
 
 use Exception;
-use RuntimeException;
 use SimpleXMLElement;
 use WP_Framework_Common\Traits\Package;
 use WP_Framework_Core\Traits\Hook;

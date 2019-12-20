@@ -5,13 +5,14 @@ on:
 
 name: Release
 
+env:
+  CI: 1
+  TRAVIS_BUILD_DIR: ${{ github.workspace }}
+
 jobs:
   releases:
     name: Upload build files
     runs-on: ubuntu-latest
-    env:
-      CI: 1
-      TRAVIS_BUILD_DIR: ${{ github.workspace }}
     steps:
       - name: Checkout
         uses: actions/checkout@master

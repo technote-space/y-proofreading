@@ -11,7 +11,7 @@
     }
   ],
   "require": {
-    "wp-content-framework/core": "^0.0.59",
+    "wp-content-framework/core": "^0.0.60",
     "wp-content-framework/api": "^0.0.14",
     "wp-content-framework/cron": "^0.0.12",
     "wp-content-framework/log": "^0.0.16",

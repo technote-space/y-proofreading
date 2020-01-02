@@ -14,7 +14,7 @@
     "wp-content-framework/core": "^0.0.59",
     "wp-content-framework/api": "^0.0.14",
     "wp-content-framework/cron": "^0.0.12",
-    "wp-content-framework/log": "^0.0.16",
+    "wp-content-framework/log": "^0.0.17",
     "wp-content-framework/update": "^0.0.8",
     "wp-content-framework/update_check": "^0.0.5",
     "php": ">=5.6"

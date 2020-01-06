@@ -6,15 +6,16 @@ on:
     tags:
       - "!*"
 
-name: Build
+name: CI
+
+env:
+  CI: 1
+  TRAVIS_BUILD_DIR: ${{ github.workspace }}
 
 jobs:
   phpcs:
     name: PHP Code Sniffer
     runs-on: ubuntu-latest
-    env:
-      CI: 1
-      TRAVIS_BUILD_DIR: ${{ github.workspace }}
     steps:
       - uses: actions/checkout@v1
         with:
@@ -33,9 +34,6 @@ jobs:
   phpmd:
     name: PHPMD
     runs-on: ubuntu-latest
-    env:
-      CI: 1
-      TRAVIS_BUILD_DIR: ${{ github.workspace }}
     steps:
       - uses: actions/checkout@v1
         with:

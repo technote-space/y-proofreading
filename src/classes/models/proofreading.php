@@ -123,6 +123,7 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 			$content = preg_replace( '#<' . $target . '[^>]*?>[\s\S]*?</' . $target . '>#i', '', $content );
 		}
 		foreach ( $this->apply_filters( 'as_block_tags', [ 'li' ] ) as $target ) {
+			$count = 0;
 			do {
 				$content = preg_replace( '#<' . $target . '[^>]*?>([\s\S]*?)</' . $target . '>#i', "\n$1", $content, -1, $count );
 			} while ( $count > 0 );

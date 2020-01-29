@@ -17,13 +17,34 @@ jobs:
     name: PHP Code Sniffer
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
         with:
           fetch-depth: 3
+      - uses: technote-space/get-diff-action@v1
+        with:
+          PREFIX_FILTER: |
+            configs/
+            src/
+            tests/
+          SUFFIX_FILTER: .php
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+        if: env.GIT_DIFF
+      - uses: actions/cache@v1
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+        if: env.GIT_DIFF
       - name: Prepare setting
         run: git clone --depth=1 https://github.com/wp-content-framework/travis-ci.git travis-ci && bash travis-ci/bin/prepare.sh
+        if: env.GIT_DIFF
       - name: Check code style
         run: bash travis-ci/bin/php/phpcs.sh
+        if: env.GIT_DIFF
       - uses: 8398a7/action-slack@v1
         with:
           type: failure
@@ -35,13 +56,34 @@ jobs:
     name: PHPMD
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
         with:
           fetch-depth: 3
+      - uses: technote-space/get-diff-action@v1
+        with:
+          PREFIX_FILTER: |
+            configs/
+            src/
+            tests/
+          SUFFIX_FILTER: .php
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+        if: env.GIT_DIFF
+      - uses: actions/cache@v1
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+        if: env.GIT_DIFF
       - name: Prepare setting
         run: git clone --depth=1 https://github.com/wp-content-framework/travis-ci.git travis-ci && bash travis-ci/bin/prepare.sh
+        if: env.GIT_DIFF
       - name: Check code style
         run: bash travis-ci/bin/php/phpmd.sh
+        if: env.GIT_DIFF
       - uses: 8398a7/action-slack@v1
         with:
           type: failure

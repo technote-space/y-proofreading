@@ -66,6 +66,7 @@ jobs:
             src/
             tests/
           SUFFIX_FILTER: .php
+          SEPARATOR: ','
       - name: Get Composer Cache Directory
         id: composer-cache
         run: |

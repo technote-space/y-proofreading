@@ -13,9 +13,12 @@ Yahoo! API を使用した校正支援プラグインです。
 
 [最新バージョン](https://github.com/technote-space/y-proofreading/releases/latest/download/release.zip)
 
+## Table of Contents
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**
+<details>
+<summary>Details</summary>
 
 - [スクリーンショット](#%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88)
   - [校正](#%E6%A0%A1%E6%AD%A3)
@@ -34,6 +37,7 @@ Yahoo! API を使用した校正支援プラグインです。
 - [Author](#author)
 - [プラグイン作成用フレームワーク](#%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E4%BD%9C%E6%88%90%E7%94%A8%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0%E3%83%AF%E3%83%BC%E3%82%AF)
 
+</details>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## スクリーンショット

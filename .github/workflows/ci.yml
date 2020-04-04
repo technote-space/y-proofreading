@@ -271,6 +271,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-composer-
         if: env.RUNNING
+      - uses: actions/cache@v1
+        with:
+          path: .plugin
+          key: plugin-cache-${{ github.run_id }}
+          restore-keys: |
+            plugin-cache-
+        if: env.RUNNING && matrix.ACTIVATE_POPULAR_PLUGINS == 1
       - name: Prepare setting
         run: git clone --depth=1 https://github.com/wp-content-framework/travis-ci.git travis-ci && bash travis-ci/bin/prepare.sh
         env:
@@ -318,6 +325,7 @@ jobs:
       - uses: technote-space/load-config-action@v1
         with:
           CONFIG_FILENAME: gh-pages.json
+        if: env.RUNNING
       - name: Get Yarn Cache Directory
         id: yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -334,8 +342,6 @@ jobs:
         run: |
           git clone --depth=1 https://github.com/wp-content-framework/travis-ci.git travis-ci
           bash travis-ci/bin/deploy/gh-pages.sh
-        env:
-          TRAVIS_BUILD_DIR: ${{ github.workspace }}
         if: env.RUNNING
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3

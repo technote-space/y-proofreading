@@ -1,7 +1,6 @@
 # Y Proofreading
 
 [![CI Status](https://github.com/technote-space/y-proofreading/workflows/CI/badge.svg)](https://github.com/technote-space/y-proofreading/actions)
-[![Build Status](https://travis-ci.com/technote-space/y-proofreading.svg?branch=master)](https://travis-ci.com/technote-space/y-proofreading)
 [![CodeFactor](https://www.codefactor.io/repository/github/technote-space/y-proofreading/badge)](https://www.codefactor.io/repository/github/technote-space/y-proofreading)
 [![License: GPL v2+](https://img.shields.io/badge/License-GPL%20v2%2B-blue.svg)](http://www.gnu.org/licenses/gpl-2.0.html)
 [![PHP: >=5.6](https://img.shields.io/badge/PHP-%3E%3D5.6-orange.svg)](http://php.net/)

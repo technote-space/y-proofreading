@@ -150,7 +150,7 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 	private function parse_result( $sentence, $results ) {
 		$items   = [];
 		$index   = 0;
-		$hash    = [];
+		$hashes  = [];
 		$summary = [];
 		$filters = $this->app->get_config( 'yahoo', 'filter' );
 		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
@@ -166,7 +166,7 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 				// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				$surface = (string) $value->Surface;
 			}
-			$r = [
+			$data = [
 				'start'   => $start,
 				'end'     => $start + $len,
 				'surface' => $surface,
@@ -177,37 +177,37 @@ class Proofreading implements \WP_Framework_Core\Interfaces\Singleton, \WP_Frame
 				// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				'index'   => $this->app->array->get( $filters, (string) $value->ShitekiInfo . '.index', 0 ),
 			];
-			$h = $this->app->utility->create_hash( $r['index'] . '-' . $r['surface'] . '-' . $r['word'] . '-' . $r['info'], 'proofreading' );
-			if ( ! isset( $hash[ $h ] ) ) {
-				$hash[ $h ] = $index++;
-				$items[]    = [
-					'surface' => $r['surface'],
-					'word'    => $r['word'],
-					'info'    => $r['info'],
-					'index'   => $r['index'],
-					'hash'    => $h,
+			$hash = $this->app->utility->create_hash( $data['index'] . '-' . $data['surface'] . '-' . $data['word'] . '-' . $data['info'], 'proofreading' );
+			if ( ! isset( $hashes[ $hash ] ) ) {
+				$hashes[ $hash ] = $index++;
+				$items[]         = [
+					'surface' => $data['surface'],
+					'word'    => $data['word'],
+					'info'    => $data['info'],
+					'index'   => $data['index'],
+					'hash'    => $hash,
 				];
 			}
-			$r['item_index'] = $hash[ $h ];
-			$summary[]       = $r;
+			$data['item_index'] = $hashes[ $hash ];
+			$summary[]          = $data;
 		}
 
 		$fragments = [];
 		$end       = null;
 		$index     = 0;
-		foreach ( array_reverse( $summary ) as $r ) {
+		foreach ( array_reverse( $summary ) as $data ) {
 			$fragments[] = [
-				'text' => mb_substr( $sentence, $r['end'], isset( $end ) ? $end - $r['end'] : null ),
+				'text' => mb_substr( $sentence, $data['end'], isset( $end ) ? $end - $data['end'] : null ),
 			];
 			$fragments[] = [
-				'text'       => mb_substr( $sentence, $r['start'], $r['end'] - $r['start'] ),
-				'index'      => $r['index'],
-				'item_index' => $r['item_index'],
-				'info'       => $r['info'],
-				'word'       => $r['word'],
+				'text'       => mb_substr( $sentence, $data['start'], $data['end'] - $data['start'] ),
+				'index'      => $data['index'],
+				'item_index' => $data['item_index'],
+				'info'       => $data['info'],
+				'word'       => $data['word'],
 				'id'         => 'proofreading-tooltip-' . ( $index++ ),
 			];
-			$end         = $r['start'];
+			$end         = $data['start'];
 		}
 		if ( $end ) {
 			$fragments[] = [

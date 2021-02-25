@@ -23,7 +23,7 @@
     "has unmet peer dependency",
     "has incorrect peer dependency",
     "Using version",
-    "ci-helper",
+    "travis-ci",
     "tests/bootstrap.php"
   ]
 }

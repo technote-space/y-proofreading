@@ -229,7 +229,13 @@ jobs:
     steps:
       - name: Set running flag
         run: echo "RUNNING=1" >> $GITHUB_ENV
+      - uses: technote-space/load-config-action@v1
+        with:
+          CONFIG_FILENAME: workflow-settings.json, workflow-details.json
+          IGNORE_WARNING: 'true'
       - uses: actions/checkout@v2
+        with:
+          submodules: ${{ env.CHECKOUT_SUBMODULES }}
       - uses: technote-space/get-git-comment-action@v1
       - uses: technote-space/get-diff-action@v4
         with:
